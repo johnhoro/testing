@@ -19,6 +19,47 @@ body,
   height: 100%;
 }
 
+.ui.celled.table tr td {
+  border-left: none;
+}
+
+/* .ui.table {
+  border: none;
+} */
+
+/* .ui.table thead th {
+  background: none;
+} */
+.order {
+  width: 250px;
+}
+.order h1 {
+  font-size: 3rem !important;
+  font-weight: 400;
+  margin-bottom: 0;
+}
+.order p {
+  color: black;
+  font-weight: 500 !important;
+}
+.sub_order {
+  display: flex;
+  flex-direction: column;
+  /* align-items: flex-end; */
+  justify-content: center;
+  width: 220px;
+}
+.sub_order h1 {
+  font-size: 2rem !important;
+  font-weight: 100 !important;
+  margin-bottom: 0;
+}
+.sub_order p {
+  color: #888;
+  font-weight: 400 !important;
+  text-align: left;
+  text-transform: capitalize;
+}
 .cardBox {
   border: 1px solid #bbbbbb;
   display: flex;

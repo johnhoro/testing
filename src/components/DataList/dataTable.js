@@ -61,22 +61,24 @@ const DataTable = ({
     usePagination
   );
 
-  // Listen for changes in pagination and use the state to fetch our new data
-  React.useEffect(() => {
-    if (pageIndex !== 0) {
-      fetchData({ pageIndex, pageSize });
-    }
-  }, [pageIndex]);
+  console.log(page, data, headerGroups, "dataTable");
 
-  useEffect(() => {
-    //reset to first page when filter changes, filter changes -> fetchdata function changes
-    if (pageIndex !== 0) {
-      gotoPage(0);
-      fetchData({ pageIndex: 0, pageSize });
-    } else {
-      fetchData({ pageIndex, pageSize });
-    }
-  }, [fetchData]);
+  // Listen for changes in pagination and use the state to fetch our new data
+  // React.useEffect(() => {
+  //   if (pageIndex !== 0) {
+  //     fetchData({ pageIndex, pageSize });
+  //   }
+  // }, [pageIndex]);
+
+  // useEffect(() => {
+  //   //reset to first page when filter changes, filter changes -> fetchdata function changes
+  //   if (pageIndex !== 0) {
+  //     gotoPage(0);
+  //     fetchData({ pageIndex: 0, pageSize });
+  //   } else {
+  //     fetchData({ pageIndex, pageSize });
+  //   }
+  // }, [fetchData]);
 
   return (
     <>
@@ -179,7 +181,7 @@ const DataTable = ({
                 </Button>
               ) : (
                 <>
-                  {onDownload ? (
+                  {true ? (
                     <Button
                       floated="right"
                       icon
@@ -265,66 +267,48 @@ const DataTable = ({
             </Table.Row>
           ))}
         </Table.Header>
-        <Table.Body {...getTableBodyProps()}>
-          {page.map((row, i) => {
-            prepareRow(row);
-            return (
-              <>
-                <tr
+        <table id="table" style={{ width: "100%", borderCollapse: "collapse" }}>
+          <thead style={{ backgroundColor: "#C4C4C4" }}>
+            <tr>
+              <td> </td>
+              <td>Order ID</td>
+              <td>Order Status</td>
+              <td>Date</td>
+              <td>Channel</td>
+              <td style={{ width: "150px" }}>Customer Payable</td>
+              <td style={{ width: "120px" }}>Commission</td>
+              <td>Charges</td>
+              <td>Taxes</td>
+              <td style={{ width: "120px" }}>Net-Receivable</td>
+              <td>Reconcile Status</td>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((elm, i) => (
+              <tr key={i}>
+                <td className="order-id">{elm.id} </td>
+                <td style={{ color: "#0F88E0" }}> {elm.order_id}</td>
+                <td> {elm.sale_order_status}</td>
+                <td>{elm.order_date_timestamp}</td>
+                <td>{elm.channel_name}</td>
+                <td style={{ textAlign: "right" }}> {elm.total_price}</td>
+                <td style={{ textAlign: "right" }}>{elm.negative_sum}</td>
+                <td style={{ textAlign: "right" }}>{elm.charges}</td>
+                <td style={{ textAlign: "right" }}> {elm.product_tax}</td>
+                <td style={{ textAlign: "right" }}> {elm.product_tax1}</td>
+                <td
                   style={{
-                    // backgroundColor: `${i % 2 !== 0 && demoTenants.includes(TENANTS(subDomain)) : `rgba(247, 248, 250, 0.5)` : ``}`,
-                    backgroundColor: `${
-                      (demoTenants.includes(TENANTS(subDomain)) ||
-                        mygateTestTenants.includes(TENANTS(subDomain)) ||
-                        intldemoTenants.includes(TENANTS(subDomain)) ||
-                        indifiTenants.includes(TENANTS(subDomain)) ||
-                        rotaryTenants.includes(TENANTS(subDomain)) ||
-                        treeboTenants.includes(TENANTS(subDomain)) ||
-                        kiviTenants.includes(TENANTS(subDomain))) &&
-                      i % 2 !== 0
-                        ? `rgba(247, 248, 250, 0.5)`
-                        : ``
-                    }`,
+                    paddingLeft: "4rem",
                   }}
-                  key={i}
-                  {...row.getRowProps()}
                 >
-                  {row.cells.map((cell, i) => {
-                    return (
-                      <td
-                        key={i}
-                        // style={{
-                        //   borderLeft: "none",
-                        // }}
-                        {...cell.getCellProps([
-                          {
-                            style: cell.column.style,
-                          },
-                        ])}
-                      >
-                        {cell.render("Cell")}
-                      </td>
-                    );
-                  })}
-                </tr>
-                {row.isExpanded ? (
-                  <tr>
-                    <td colSpan={visibleColumns.length}>
-                      {/*
-                                      Inside it, call our renderRowSubComponent function. In reality,
-                                      you could pass whatever you want as props to
-                                      a component like this, including the entire
-                                      table instance. But for this example, we'll just
-                                      pass the row
-                                    */}
-                      {renderRowSubComponent({ row })}
-                    </td>
-                  </tr>
-                ) : null}
-              </>
-            );
-          })}
-        </Table.Body>
+                  <img width="15px" src={elm.is_cod} />
+                </td>
+                {/* <td> {elm.subtotal}</td> */}
+                {/* <td> {elm.is_cod}</td> */}
+              </tr>
+            ))}
+          </tbody>
+        </table>
         <Table.Footer></Table.Footer>
       </Table>
       {/* <div className="pagination">

@@ -22,7 +22,7 @@ import HeaderDemo from "../components/demo/headerDemo";
 const PrivateRoute = (props) => {
   const { auth, user, userLoading, subDomain, isMygate, isBankit } = props;
 
-  if (userLoading) {
+  if (false) {
     return (
       <Dimmer active inverted>
         {" "}
@@ -30,16 +30,16 @@ const PrivateRoute = (props) => {
       </Dimmer>
     );
   } else {
-    return user ? (
+    return (
       <Grid>
         <Grid.Column>
           <Grid.Row>
-              <Header
-                firebaseApp={firebase.getApp()}
-                onSignout={null}
-                isMygate={isMygate}
-                subDomain={subDomain}
-              />
+            <Header
+              // firebaseApp={firebase.getApp()}
+              // onSignout={null}
+              // isMygate={isMygate}
+              subDomain={subDomain}
+            />
           </Grid.Row>
           <Grid.Row>
             <FilterBar isMygate={isMygate} isBankit subDomain={subDomain} />
@@ -57,8 +57,6 @@ const PrivateRoute = (props) => {
           </Grid.Row>
         </Grid.Column>
       </Grid>
-    ) : (
-      <Navigate to={"/login"} />
     );
   }
 };

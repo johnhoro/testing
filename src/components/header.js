@@ -42,23 +42,23 @@ import {
 
 const Header = (props) => {
   //const userState = useSelector(state => state.login.user);
-  const auth = getAuth(props.firebaseApp);
-  const [user, loading, error] = useAuthState(auth);
+  // const auth = getAuth(props.firebaseApp);
+  // const [user, loading, error] = useAuthState(auth);
   const appRoute = useSelector((state) => state.app.route);
   const dispatch = useDispatch();
   let navigate = useNavigate();
   const { isMygate, subDomain } = props;
 
-  useEffect(() => {
-    setLoggedInUserCache(user ? user.accessToken : "");
-  }, [user]);
+  // useEffect(() => {
+  //   setLoggedInUserCache(user ? user.accessToken : "");
+  // }, [user]);
 
   const onHandleLogout = (event) => {
     event.preventDefault();
     dispatch(appNavigateAction("/login"));
     //dispatch(logoutUserAction({}));
     //props.onSignout();
-    signOut(auth);
+    // signOut(auth);
   };
 
   const onMenuClick = (route) => {

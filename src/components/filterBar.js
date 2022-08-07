@@ -1160,7 +1160,7 @@ const FilterBar = ({ isMygate, isBankit, subDomain }) => {
         <div
           style={{
             padding: "0 1.5em",
-            marginBottom: `${appRoute === `/setup` ? `4em` : `1em`}`,
+            marginBottom: `${appRoute === `/setup` ? `4em` : ` `}`,
             marginTop: `${appRoute === `/setup` ? `1.7em` : `3.7em`}`,
           }}
         >

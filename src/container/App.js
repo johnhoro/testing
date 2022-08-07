@@ -8,7 +8,7 @@ import Header from "../components/header";
 import ReconciliationPage from "../components/reconciliationPage";
 import DashboardPage from "../components/dashboardPage";
 import SetupPage from "../components/setupPage";
-import * as firebase from "firebase/app";
+// import * as firebase from "firebase/app";
 import CommissionPage from "../components/commissionPage";
 import Order from "../components/orderPage";
 import OrdersBetel from "../components/order";
@@ -40,11 +40,11 @@ const isDev =
 const firebaseConfig = {
   // apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   // authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-  apiKey: "AIzaSyC2qSKFn1qN7b4cJfiGIq-CtsXk1kkpBys",
-  authDomain: "kosh-ai.firebaseapp.com",
+  // apiKey: "AIzaSyC2qSKFn1qN7b4cJfiGIq-CtsXk1kkpBys",
+  // authDomain: "kosh-ai.firebaseapp.com",
 };
 
-firebase.initializeApp(firebaseConfig);
+// firebase.initializeApp(firebaseConfig);
 
 const mygateDesignSubDomains = ["mygate", "demo", "mygatetest"];
 const bankitDesignSubDomains = ["bankit", "bankittest"];
@@ -81,9 +81,9 @@ function App() {
     (domain) => domain === subDomain
   );
 
-  const firebaseApp = firebase.getApp();
-  const auth = getAuth(firebaseApp);
-  const [user, userLoading] = useAuthState(auth);
+  // const firebaseApp = firebase.getApp();
+  // const auth = getAuth(firebaseApp);
+  // const [user, userLoading] = useAuthState(auth);
 
   return (
     // <Authenticator>
@@ -137,19 +137,10 @@ function App() {
           rotaryTenants.includes(TENANTS(subDomain)) ||
           treeboTenants.includes(TENANTS(subDomain)) ||
           kiviTenants.includes(TENANTS(subDomain)) ? (
-            <Route
-              path="/login"
-              element={
-                <LoginDemo user={user} userLoading={userLoading} auth={auth} />
-              }
-            />
+            <Route path="/login" element={<LoginDemo />} />
           ) : (
-            <Route
-              path="/login"
-              element={
-                <LoginPage user={user} userLoading={userLoading} auth={auth} />
-              }
-            />
+            <Route path="/login" element={<LoginPage />} />
+            // <Route path="/login" element={<DashboardPage />} />
           )}
           <Route
             path="/"
@@ -157,9 +148,9 @@ function App() {
               <PrivateRoute
                 isMygate={isMygate}
                 subDomain={subDomain}
-                auth={auth}
-                user={user}
-                userLoading={userLoading}
+                // auth={auth}
+                // user={user}
+                // userLoading={userLoading}
               />
             }
           >
@@ -211,11 +202,11 @@ function App() {
               path="/"
               element={
                 <DashboardPage
-                  isMygate={isMygate}
-                  isBankit={isBankit}
-                  isMosaic={isMosaic}
-                  isTreebo={isTreebo}
-                  isMosaicTest={isMosaicTest}
+                  // isMygate={isMygate}
+                  // isBankit={isBankit}
+                  // isMosaic={isMosaic}
+                  // isTreebo={isTreebo}
+                  // isMosaicTest={isMosaicTest}
                   subDomain={subDomain}
                 />
               }

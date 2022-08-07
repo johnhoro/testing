@@ -118,9 +118,9 @@ export default class ApexChart extends React.Component {
     return (
       <div
         id="chart"
-        style={{
-          marginTop: "2em",
-        }}
+        // style={{
+        //   marginTop: "2em",
+        // }}
       >
         <ReactApexChart
           options={this.state.options}

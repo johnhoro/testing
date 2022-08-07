@@ -33,7 +33,7 @@ const LoginPage = ({ userLoading, user, auth }) => {
 
   const subDomain = window.location.hostname.split(".")[0];
 
-  auth.tenantId = TENANTS(subDomain); //"test-05pfe";
+  // auth.tenantId = TENANTS(subDomain); //"test-05pfe";
   const [signInWithEmailAndPassword, userInfo, loading, error] =
     useSignInWithEmailAndPassword(auth);
 
@@ -42,20 +42,23 @@ const LoginPage = ({ userLoading, user, auth }) => {
   // const [loggedInUser, loggedInUserLoading] = useAuthState(auth);
   const onHandleLogin = (event) => {
     event.preventDefault();
-    const email = event.target.email.value;
-    const password = event.target.password.value;
-    signInWithEmailAndPassword(email, password);
+    // const email = event.target.email.value;
+    // const password = event.target.password.value;
+    const email = "demo@mosaictest.com";
+    const password = "abc123";
+    // signInWithEmailAndPassword(email, password);
 
     // dispatch(loginUserAction({
     //   email, password,
     // }));
+    dispatch(appNavigateAction("/"));
   };
 
   useEffect(() => {
-    if (user && !userLoading) {
-      dispatch(appNavigateAction("/"));
+    if (true) {
+      console.log("john");
     }
-  }, [user]);
+  });
 
   return userLoading ? (
     <Dimmer active inverted>

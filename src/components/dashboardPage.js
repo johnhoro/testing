@@ -37,9 +37,12 @@ import {
   intldemoTenants,
   mosaicTestTenants,
   mygateTestTenants,
+  eatFitData,
 } from "../utils/constants";
 import NodalDataWidget from "./Widgets/nodalDataWidget";
 import PieChartBetel from "./Widgets/barchartBetel";
+
+let allData = eatFitData;
 
 const DashboardPage = ({
   isMygate,
@@ -277,6 +280,282 @@ const DashboardPage = ({
       ) : (
         " "
       )}
+
+      <div
+        style={{
+          display: "flex",
+          // justifyContent: "space-between",
+          border: "1px solid #bbbbbb",
+          padding: "1em",
+          marginBottom: "1rem",
+        }}
+      >
+        <div className="order">
+          <h1>2,68,910</h1>
+          <p>ALL ORDERS</p>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            width: "100%",
+            // justifyContent: "space-between",
+            justifyContent: "space-evenly",
+          }}
+        >
+          <div className="sub_order">
+            <h1>₹ 7,83,00,241.00</h1>
+            <p>Paid by Users</p>
+          </div>
+          <div className="sub_order">
+            <h1>₹ 1,18,07,879.00</h1>
+            <p>Commission</p>
+          </div>
+          <div className="sub_order">
+            <h1>₹ 35,92,440.00</h1>
+            <p>Govt. Tax</p>
+          </div>
+          <div className="sub_order">
+            <h1>₹ 6,28,95,954.00</h1>
+            <p>Net Payable</p>
+          </div>
+        </div>
+      </div>
+      <div
+        style={{
+          display: "flex",
+          // justifyContent: "space-between",
+          border: "1px solid #bbbbbb",
+          padding: "1em",
+          marginBottom: "1rem",
+        }}
+      >
+        <div className="order">
+          <h1>2,04,441</h1>
+          <p>ORDERS IN POS & CHANNEL</p>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            width: "100%",
+            // justifyContent: "space-between",
+            justifyContent: "space-evenly",
+          }}
+        >
+          <div className="sub_order">
+            <h1>₹ 7,79,10,688.00</h1>
+            <p>Paid by Users</p>
+          </div>
+          <div className="sub_order">
+            <h1>₹ 1,17,49,134.00</h1>
+            <p>Commission</p>
+          </div>
+          <div className="sub_order">
+            <h1>₹ 35,74,567.00</h1>
+            <p>Govt. Tax</p>
+          </div>
+          <div className="sub_order">
+            <h1>₹ 6,25,86,987.00</h1>
+            <p>Net Payable</p>
+          </div>
+        </div>
+      </div>
+      <div
+        style={{
+          display: "flex",
+          // justifyContent: "space-between",
+          border: "1px solid #bbbbbb",
+          padding: "1em",
+          marginBottom: "1rem",
+        }}
+      >
+        <div className="order">
+          <h1>38,709</h1>
+          <p>ORDERS IN CHANNEL ONLY</p>
+        </div>
+
+        <div
+          style={{
+            display: "flex",
+            width: "100%",
+            // justifyContent: "space-between",
+            justifyContent: "space-evenly",
+          }}
+        >
+          <div className="sub_order">
+            <h1>₹ 2,87,490.00</h1>
+            <p>Paid by Users</p>
+          </div>
+          <div className="sub_order">
+            <h1>₹ 43,354.00</h1>
+            <p>Commission</p>
+          </div>
+          <div className="sub_order">
+            <h1>₹ 13,190.00</h1>
+            <p>Govt. Tax</p>
+          </div>
+          <div className="sub_order">
+            <h1>₹ 2,31,404.00</h1>
+            <p>Net Payable</p>
+          </div>
+        </div>
+      </div>
+      <div
+        style={{
+          display: "flex",
+          // justifyContent: "space-between",
+          border: "1px solid #bbbbbb",
+          padding: "1em",
+          marginBottom: "1rem",
+        }}
+        className=" dashboard flex justify-bw align-center"
+      >
+        <div className="order">
+          <h1>25,760</h1>
+          <p>ORDERS IN POS ONLY</p>
+        </div>
+
+        <div
+          style={{
+            display: "flex",
+            width: "100%",
+            // justifyContent: "space-between",
+            justifyContent: "space-evenly",
+            // justifyContent: "flex-start",
+          }}
+        >
+          <div className="sub_order">
+            <h1>₹ 96,531.00</h1>
+            <p>Paid by Users</p>
+          </div>
+          <div className="sub_order">
+            <h1>₹ 14,557.00</h1>
+            <p>Commission</p>
+          </div>
+          <div className="sub_order">
+            <h1>₹ 4,428.00</h1>
+            <p>Govt. Tax</p>
+          </div>
+          <div className="sub_order">
+            <h1>₹ 77,563.00</h1>
+            <p>Net Payable</p>
+          </div>
+        </div>
+      </div>
+
+      {mosaicTestTenants.includes(TENANTS(subDomain)) && (
+        <>
+          <Grid.Row
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+            columns={3}
+          >
+            <Grid.Column
+              style={{
+                width: "32.6%",
+                border: "1px solid #BBBBBB",
+                // marginTop: "1rem",
+                padding: "1em",
+                height: "415px",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                }}
+              >
+                <p
+                  style={{
+                    marginBottom: "0",
+                    fontWeight: 700,
+                  }}
+                >
+                  Order Distribution
+                </p>
+                <CustomizedSwitches />
+              </div>
+              {/* <PieChartMosaicTest
+                subDomain={subDomain}
+                dataID={["mosaicTestOrderDistribution"]}
+              /> */}
+              <PieChartBetel />
+            </Grid.Column>
+            <Grid.Column
+              style={{
+                width: "32.6%",
+                border: "1px solid #BBBBBB",
+                // marginTop: "1rem",
+                padding: "1em",
+                height: "415px",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                }}
+              >
+                <p style={{ fontWeight: 700 }}>Product Distribution</p>
+              </div>
+              <HeatMapWidget
+                subDomain={subDomain}
+                dataID={["mosaicTestProductDistribution"]}
+              />
+            </Grid.Column>
+            <Grid.Column
+              style={{
+                width: "32.6%",
+                border: "1px solid #BBBBBB",
+                // marginTop: "1rem",
+                padding: "1em",
+                paddingBottom: "2em",
+                height: "415px",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                }}
+              >
+                <p style={{ fontWeight: 700 }}>Brand Distribution</p>
+              </div>
+              {/* <PieChart2
+                subDomain={subDomain}
+                dataID={["mosaicTestBrandDistribution"]}
+              /> */}
+              <PieChartBetel type="all" />
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row columns={1}>
+            <Grid.Column
+              style={{
+                border: "1px solid #BBBBBB",
+                marginTop: "1rem",
+                padding: "1em",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: "2rem",
+                }}
+              >
+                <p style={{ fontWeight: 700 }}>Daily Order Trend</p>
+              </div>
+              {/* <Bar subDomain={subDomain} dataID="mosaicTestDailyOrderTrend" /> */}
+              <BarChartMosaicTest
+                subDomain={subDomain}
+                dataID="mosaicTestDailyOrderTrend"
+              />
+            </Grid.Column>
+          </Grid.Row>
+        </>
+      )}
+
       {mosaicTenants.includes(TENANTS(subDomain)) && (
         <>
           <Grid.Row
@@ -290,7 +569,7 @@ const DashboardPage = ({
               style={{
                 width: "32.6%",
                 border: "1px solid #BBBBBB",
-                marginTop: "1rem",
+                // marginTop: "1rem",
                 padding: "1em",
                 height: "415px",
               }}
@@ -316,7 +595,7 @@ const DashboardPage = ({
               style={{
                 width: "32.6%",
                 border: "1px solid #BBBBBB",
-                marginTop: "1rem",
+                // marginTop: "1rem",
                 padding: "1em",
                 height: "415px",
               }}
@@ -335,7 +614,7 @@ const DashboardPage = ({
               style={{
                 width: "32.6%",
                 border: "1px solid #BBBBBB",
-                marginTop: "1rem",
+                // marginTop: "1rem",
                 padding: "1em",
                 height: "415px",
               }}
@@ -381,7 +660,7 @@ const DashboardPage = ({
         </>
       )}
 
-      {mosaicTestTenants.includes(TENANTS(subDomain)) ? (
+      {/* {mosaicTestTenants.includes(TENANTS(subDomain)) ? (
         <Grid>
           <Grid.Row
             columns={5}
@@ -606,119 +885,7 @@ const DashboardPage = ({
         </Grid>
       ) : (
         " "
-      )}
-      {mosaicTestTenants.includes(TENANTS(subDomain)) && (
-        <>
-          <Grid.Row
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-            }}
-            columns={3}
-          >
-            <Grid.Column
-              style={{
-                width: "32.6%",
-                border: "1px solid #BBBBBB",
-                marginTop: "1rem",
-                padding: "1em",
-                height: "415px",
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                }}
-              >
-                <p
-                  style={{
-                    marginBottom: "0",
-                    fontWeight: 700,
-                  }}
-                >
-                  Order Distribution
-                </p>
-                <CustomizedSwitches />
-              </div>
-              {/* <PieChartMosaicTest
-                subDomain={subDomain}
-                dataID={["mosaicTestOrderDistribution"]}
-              /> */}
-              <PieChartBetel />
-            </Grid.Column>
-            <Grid.Column
-              style={{
-                width: "32.6%",
-                border: "1px solid #BBBBBB",
-                marginTop: "1rem",
-                padding: "1em",
-                height: "415px",
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                }}
-              >
-                <p style={{ fontWeight: 700 }}>Product Distribution</p>
-              </div>
-              <HeatMapWidget
-                subDomain={subDomain}
-                dataID={["mosaicTestProductDistribution"]}
-              />
-            </Grid.Column>
-            <Grid.Column
-              style={{
-                width: "32.6%",
-                border: "1px solid #BBBBBB",
-                marginTop: "1rem",
-                padding: "1em",
-                height: "415px",
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                }}
-              >
-                <p style={{ fontWeight: 700 }}>Brand Distribution</p>
-              </div>
-              {/* <PieChart2
-                subDomain={subDomain}
-                dataID={["mosaicTestBrandDistribution"]}
-              /> */}
-              <PieChartBetel type="all" />
-            </Grid.Column>
-          </Grid.Row>
-          <Grid.Row columns={1}>
-            <Grid.Column
-              style={{
-                border: "1px solid #BBBBBB",
-                marginTop: "1rem",
-                padding: "1em",
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  marginBottom: "2rem",
-                }}
-              >
-                <p style={{ fontWeight: 700 }}>Daily Order Trend</p>
-              </div>
-              {/* <Bar subDomain={subDomain} dataID="mosaicTestDailyOrderTrend" /> */}
-              <BarChartMosaicTest
-                subDomain={subDomain}
-                dataID="mosaicTestDailyOrderTrend"
-              />
-            </Grid.Column>
-          </Grid.Row>
-        </>
-      )}
+      )} */}
 
       {indifiTenants.includes(TENANTS(subDomain)) ? (
         <>
