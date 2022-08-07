@@ -151,146 +151,82 @@ const SetupSources = ({ isMygate = false, subDomain = subDomain }) => {
     },
   ];
 
-  console.log(selectedSourceOption, "source_j");
-
   const headerRow = (
     <Table.Row>
-      {demoTenants.includes(TENANTS(subDomain)) ||
-      mygateTestTenants.includes(TENANTS(subDomain)) ||
-      intldemoTenants.includes(TENANTS(subDomain)) ||
-      rotaryTenants.includes(TENANTS(subDomain)) ||
-      treeboTenants.includes(TENANTS(subDomain)) ||
-      mosaicTestTenants.includes(TENANTS(subDomain)) ||
-      kiviTenants.includes(TENANTS(subDomain)) ? (
-        <Table.HeaderCell
-          colSpan="9"
+      <Table.HeaderCell
+        colSpan="9"
+        style={{
+          backgroundColor: "white",
+          padding: "0",
+          paddingBottom: "1em",
+        }}
+      >
+        <Button
+          primary
           style={{
-            backgroundColor: "white",
-            padding: "0",
-            paddingBottom: "1em",
+            display: "inline-flex",
+            alignItems: "center",
+            backgroundColor: "#6A4C93",
+            paddingRight: "1.5em",
+            paddingLeft: "0.5em",
+            paddingTop: "0",
+            paddingBottom: "0",
           }}
+          onClick={onReconcileClicked}
+          loading={isReconciling}
         >
-          <Button
-            primary
+          <Image
+            src="images/Union.png"
+            size="mini"
+            style={{ width: "16px", height: "16px", margin: "7px" }}
+          />
+          Reconcile
+        </Button>
+        <Button
+          as="div"
+          className="Config_chevron"
+          labelPosition="left"
+          floated="right"
+        >
+          <Label
             style={{
-              display: "inline-flex",
+              padding: "0",
+            }}
+            basic
+          >
+            <Dropdown
+              icon="chevron down"
+              value={selectedSourceOption}
+              options={sourceTypes()}
+              onChange={onSelectedSourceChanged}
+            />
+          </Label>
+
+          <Button
+            style={{
+              display: "flex",
               alignItems: "center",
-              backgroundColor: "#6A4C93",
               paddingRight: "1.5em",
               paddingLeft: "0.5em",
-              paddingTop: "0",
+              backgroundColor: "#F7F8FA",
+              border: "1px solid #CCCFD9",
+              marginLeft: "1em",
               paddingBottom: "0",
+              paddingTop: "0",
             }}
-            onClick={onReconcileClicked}
-            loading={isReconciling}
+            icon
+            onClick={onAddSource}
           >
+            {/* <Icon name="plus" /> */}
             <Image
-              src="images/Union.png"
+              src="images/plus.png"
               size="mini"
               style={{ width: "16px", height: "16px", margin: "7px" }}
             />
-            Reconcile
+            Add New Source
           </Button>
-          {!kiviTenants.includes(TENANTS(subDomain)) &&
-            !treeboTenants.includes(TENANTS(subDomain)) && (
-              <Button
-                as="div"
-                className="Config_chevron"
-                labelPosition="left"
-                floated="right"
-              >
-                <Label
-                  style={{
-                    padding: "0",
-                  }}
-                  basic
-                >
-                  <Dropdown
-                    icon="chevron down"
-                    value={selectedSourceOption}
-                    options={sourceTypes()}
-                    onChange={onSelectedSourceChanged}
-                  />
-                </Label>
-
-                <Button
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    paddingRight: "1.5em",
-                    paddingLeft: "0.5em",
-                    backgroundColor: "#F7F8FA",
-                    border: "1px solid #CCCFD9",
-                    marginLeft: "1em",
-                    paddingBottom: "0",
-                    paddingTop: "0",
-                  }}
-                  icon
-                  onClick={onAddSource}
-                >
-                  {/* <Icon name="plus" /> */}
-                  <Image
-                    src="images/plus.png"
-                    size="mini"
-                    style={{ width: "16px", height: "16px", margin: "7px" }}
-                  />
-                  Add New Source
-                </Button>
-              </Button>
-            )}
-        </Table.HeaderCell>
-      ) : indifiTenants.includes(TENANTS(subDomain)) ? (
-        <Table.HeaderCell
-          colSpan="9"
-          style={{
-            backgroundColor: "white",
-            padding: "0",
-            paddingBottom: "1em",
-          }}
-        >
-          <Button
-            primary
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              backgroundColor: "#6A4C93",
-              paddingRight: "1.5em",
-              paddingLeft: "0.5em",
-              paddingTop: "0",
-              paddingBottom: "0",
-            }}
-            onClick={onReconcileClicked}
-            loading={isReconciling}
-          >
-            <Image
-              src="images/Union.png"
-              size="mini"
-              style={{ width: "16px", height: "16px", margin: "7px" }}
-            />
-            Reconcile
-          </Button>
-        </Table.HeaderCell>
-      ) : (
-        <Table.HeaderCell colSpan="9">
-          <Button primary onClick={onReconcileClicked} loading={isReconciling}>
-            Reconcile
-          </Button>
-          <Button as="div" labelPosition="left" floated="right">
-            <Label basic>
-              <Dropdown
-                value={selectedSourceOption}
-                options={sourceTypes()}
-                onChange={onSelectedSourceChanged}
-              />
-            </Label>
-
-            <Button icon onClick={onAddSource}>
-              <Icon name="plus" />
-              Add New Source
-            </Button>
-          </Button>
-        </Table.HeaderCell>
-      )}
+        </Button>
+      </Table.HeaderCell>
     </Table.Row>
   );
 

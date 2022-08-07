@@ -84,28 +84,8 @@ const DataTable = ({
     <>
       <Table
         style={{
-          border: `${
-            demoTenants.includes(TENANTS(subDomain)) ||
-            mygateTestTenants.includes(TENANTS(subDomain)) ||
-            intldemoTenants.includes(TENANTS(subDomain)) ||
-            indifiTenants.includes(TENANTS(subDomain)) ||
-            rotaryTenants.includes(TENANTS(subDomain)) ||
-            treeboTenants.includes(TENANTS(subDomain)) ||
-            kiviTenants.includes(TENANTS(subDomain))
-              ? `0`
-              : ``
-          }`,
-          borderBottom: `${
-            demoTenants.includes(TENANTS(subDomain)) ||
-            mygateTestTenants.includes(TENANTS(subDomain)) ||
-            intldemoTenants.includes(TENANTS(subDomain)) ||
-            indifiTenants.includes(TENANTS(subDomain)) ||
-            rotaryTenants.includes(TENANTS(subDomain)) ||
-            treeboTenants.includes(TENANTS(subDomain)) ||
-            kiviTenants.includes(TENANTS(subDomain))
-              ? `1px solid #dfe1e6`
-              : ``
-          }`,
+          border: "0",
+          borderBottom: `1px solid #dfe1e6`,
         }}
         {...getTableProps()}
         celled
@@ -115,17 +95,7 @@ const DataTable = ({
           <Table.Row>
             <Table.HeaderCell
               style={{
-                backgroundColor: `${
-                  demoTenants.includes(TENANTS(subDomain)) ||
-                  mygateTestTenants.includes(TENANTS(subDomain)) ||
-                  intldemoTenants.includes(TENANTS(subDomain)) ||
-                  indifiTenants.includes(TENANTS(subDomain)) ||
-                  rotaryTenants.includes(TENANTS(subDomain)) ||
-                  treeboTenants.includes(TENANTS(subDomain)) ||
-                  kiviTenants.includes(TENANTS(subDomain))
-                    ? `white`
-                    : ``
-                }`,
+                backgroundColor: "white",
               }}
               colSpan={columns.length}
             >
@@ -148,56 +118,29 @@ const DataTable = ({
                   <Icon name="chevron right" />
                 </Menu.Item>
               </Menu>
-              {onDownload &&
-              (demoTenants.includes(TENANTS(subDomain)) ||
-                mygateTestTenants.includes(TENANTS(subDomain)) ||
-                intldemoTenants.includes(TENANTS(subDomain)) ||
-                indifiTenants.includes(TENANTS(subDomain)) ||
-                rotaryTenants.includes(TENANTS(subDomain)) ||
-                treeboTenants.includes(TENANTS(subDomain)) ||
-                kiviTenants.includes(TENANTS(subDomain))) ? (
-                <Button
-                  floated="right"
-                  icon
-                  //   color={"violet"}
-                  as="a"
-                  onClick={onDownload}
-                  style={{
-                    backgroundColor: "#6A4C93",
-                    display: "flex",
-                    alignItems: "center",
-                    padding: "0",
-                    paddingRight: "1em",
-                    color: "white",
-                  }}
-                >
-                  {/* <Icon name='cloud download' /> */}
-                  <Image
-                    src="images/download.png"
-                    size="mini"
-                    style={{ width: "16px", height: "16px", margin: "10px" }}
-                  />
-                  <span>Download</span>
-                </Button>
-              ) : (
-                <>
-                  {true ? (
-                    <Button
-                      floated="right"
-                      icon
-                      color={"violet"}
-                      as="a"
-                      onClick={onDownload}
-                    >
-                      <Icon name="cloud download" />
-                    </Button>
-                  ) : (
-                    " "
-                  )}
-                </>
-              )}
+              <Button
+                floated="right"
+                icon
+                as="a"
+                onClick={onDownload}
+                style={{
+                  backgroundColor: "#6A4C93",
+                  display: "flex",
+                  alignItems: "center",
+                  padding: "0",
+                  paddingRight: "1em",
+                  color: "white",
+                }}
+              >
+                <Image
+                  src="images/download.png"
+                  size="mini"
+                  style={{ width: "16px", height: "16px", margin: "10px" }}
+                />
+                <span>Download</span>
+              </Button>
 
-              {groupByOptions ? (
+              {/* {groupByOptions ? (
                 <Menu
                   floated="right"
                   pagination
@@ -215,7 +158,7 @@ const DataTable = ({
                 </Menu>
               ) : (
                 ""
-              )}
+              )} */}
             </Table.HeaderCell>
           </Table.Row>
           {headerGroups.map((headerGroup) => (
@@ -274,13 +217,15 @@ const DataTable = ({
               <td>Order ID</td>
               <td>Order Status</td>
               <td>Date</td>
-              <td>Channel</td>
-              <td style={{ width: "150px" }}>Customer Payable</td>
-              <td style={{ width: "120px" }}>Commission</td>
-              <td>Charges</td>
-              <td>Taxes</td>
-              <td style={{ width: "120px" }}>Net-Receivable</td>
-              <td>Reconcile Status</td>
+              <td style={{ textAlign: "center" }}>Channel</td>
+              <td style={{ width: "131px" }}>Customer Payable</td>
+              <td style={{ width: "110px", textAlign: "right" }}>Commission</td>
+              <td style={{ textAlign: "right" }}>Charges</td>
+              <td style={{ textAlign: "right" }}>Taxes</td>
+              <td style={{ textAlign: "right", width: "150px" }}>
+                Net-Receivable
+              </td>
+              <td style={{ textAlign: "center" }}>Reconcile Status</td>
             </tr>
           </thead>
           <tbody>
@@ -290,7 +235,7 @@ const DataTable = ({
                 <td style={{ color: "#0F88E0" }}> {elm.order_id}</td>
                 <td> {elm.sale_order_status}</td>
                 <td>{elm.order_date_timestamp}</td>
-                <td>{elm.channel_name}</td>
+                <td style={{ textAlign: "center" }}>{elm.channel_name}</td>
                 <td style={{ textAlign: "right" }}> {elm.total_price}</td>
                 <td style={{ textAlign: "right" }}>{elm.negative_sum}</td>
                 <td style={{ textAlign: "right" }}>{elm.charges}</td>
@@ -298,7 +243,7 @@ const DataTable = ({
                 <td style={{ textAlign: "right" }}> {elm.product_tax1}</td>
                 <td
                   style={{
-                    paddingLeft: "4rem",
+                    textAlign: "center",
                   }}
                 >
                   <img width="15px" src={elm.is_cod} />

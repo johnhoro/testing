@@ -285,35 +285,19 @@ export const sourceTypes = (key) => {
   const Types = {
     default: [
       {
-        key: "razorpay_gateway",
-        text: "Razorpay Gateway",
-        value: "razorpay_gateway",
+        key: "eatfit_metabase",
+        text: "POS",
+        value: "eatfit_metabase",
       },
       {
-        key: "razorpay_payout",
-        text: "Razorpay Payout",
-        value: "razorpay_payout",
-      },
-      { key: "merc_order", text: "Merchant Orders", value: "merc_order" },
-      {
-        key: "cashfree_gateway",
-        text: "Cashfree Gateway",
-        value: "cashfree_gateway",
+        key: "eatfit_swiggy",
+        text: "Swiggy",
+        value: "eatfit_swiggy",
       },
       {
-        key: "cashfree_payout",
-        text: "Cashfree Payout",
-        value: "cashfree_payout",
-      },
-      {
-        key: "yesbank_payout",
-        text: "Yesbank Payout",
-        value: "yesbank_payout",
-      },
-      {
-        key: "rp_nodal_statements",
-        text: "Nodal Statement",
-        value: "rp_nodal_statements",
+        key: "eatfit_zomato",
+        text: "Zomato",
+        value: "eatfit_zomato",
       },
     ],
     [TENANT_IDs.bankittest]: [
