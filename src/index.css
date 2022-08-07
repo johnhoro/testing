@@ -30,6 +30,39 @@ body,
 /* .ui.table thead th {
   background: none;
 } */
+
+.ui.column.grid > [class*="fourteen wide"].column > .ui.celled.table {
+  /* background-color: red; */
+  border: none;
+  border-bottom: 1px solid rgba(34, 36, 38, 0.1);
+}
+
+.ui.column.grid
+  > [class*="fourteen wide"].column
+  > .ui.celled.table
+  > thead
+  > tr:nth-child(2)
+  > th:first-child {
+  border-left: 1px solid rgba(34, 36, 38, 0.1);
+}
+/* .ui.column.grid
+  > [class*="fourteen wide"].column
+  > .ui.celled.table
+  > thead
+  > tr:nth-child(2)
+  > th {
+  border-left: 1px solid rgba(34, 36, 38, 0.1);
+  border-top: 1px solid rgba(34, 36, 38, 0.1);
+} */
+
+.ui.column.grid
+  > [class*="fourteen wide"].column
+  > .ui.celled.table
+  > thead
+  > tr:nth-child(2)
+  > th:last-child {
+  border-right: 1px solid rgba(34, 36, 38, 0.1);
+}
 .order {
   width: 250px;
 }

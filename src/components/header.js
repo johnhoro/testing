@@ -76,6 +76,7 @@ const Header = (props) => {
       mygateTestTenants.includes(TENANTS(subDomain)) ||
       intldemoTenants.includes(TENANTS(subDomain)) ||
       indifiTenants.includes(TENANTS(subDomain)) ||
+      mosaicTestTenants.includes(TENANTS(subDomain)) ||
       rotaryTenants.includes(TENANTS(subDomain)) ||
       kiviTenants.includes(TENANTS(subDomain)) ? (
         <div className="demo_header">
@@ -86,7 +87,7 @@ const Header = (props) => {
             size="large"
           >
             <Image
-              src="logo.png"
+              src="images/logo.png"
               size="mini"
               style={{ width: "30px", height: "30px", margin: "10px" }}
             />
@@ -99,7 +100,7 @@ const Header = (props) => {
             >
               Dashboard
             </Menu.Item>
-            {!indifiTenants.includes(TENANTS(subDomain)) && (
+            {/* {!indifiTenants.includes(TENANTS(subDomain)) && (
               <Menu.Item
                 active={appRoute === "/reconciliation"}
                 onClick={() => {
@@ -108,8 +109,8 @@ const Header = (props) => {
               >
                 Reconciliation
               </Menu.Item>
-            )}
-            {(demoTenants.includes(TENANTS(subDomain)) ||
+            )} */}
+            {/* {(demoTenants.includes(TENANTS(subDomain)) ||
               mygateTestTenants.includes(TENANTS(subDomain)) ||
               intldemoTenants.includes(TENANTS(subDomain))) && (
               <Menu.Item
@@ -120,7 +121,7 @@ const Header = (props) => {
               >
                 Commission
               </Menu.Item>
-            )}
+            )} */}
             {indifiTenants.includes(TENANTS(subDomain)) && (
               <Menu.Item
                 color={"violet"}
@@ -132,6 +133,14 @@ const Header = (props) => {
                 Transactions
               </Menu.Item>
             )}
+            <Menu.Item
+              active={appRoute === "/order"}
+              onClick={() => {
+                onMenuClick("/order");
+              }}
+            >
+              Order
+            </Menu.Item>
             <Menu.Item
               active={appRoute === "/setup"}
               onClick={() => {

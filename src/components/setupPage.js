@@ -9,6 +9,7 @@ import {
   kiviTenants,
   TENANTS,
   indifiTenants,
+  mosaicTestTenants,
 } from "../utils/constants";
 import SetupMonitorPage from "./setupMonitor";
 import SetupSources from "./setupSources";
@@ -34,6 +35,7 @@ const SetupPage = ({ isMygate = false, subDomain }) => {
               intldemoTenants.includes(TENANTS(subDomain)) ||
               indifiTenants.includes(TENANTS(subDomain)) ||
               rotaryTenants.includes(TENANTS(subDomain)) ||
+              mosaicTestTenants.includes(TENANTS(subDomain)) ||
               treeboTenants.includes(TENANTS(subDomain)) ||
               kiviTenants.includes(TENANTS(subDomain))
                 ? "#f7f8fa"

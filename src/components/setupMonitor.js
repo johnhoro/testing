@@ -10,6 +10,7 @@ import {
   treeboTenants,
   TENANTS,
   indifiTenants,
+  mosaicTestTenants,
 } from "../../src/utils/constants";
 
 import { getDataStatuses } from "../services/uploadDataService";
@@ -43,6 +44,7 @@ const SetupMonitorPage = ({ isMygate = false, subDomain }) => {
             mygateTestTenants.includes(TENANTS(subDomain)) ||
             intldemoTenants.includes(TENANTS(subDomain)) ||
             indifiTenants.includes(TENANTS(subDomain)) ||
+            mosaicTestTenants.includes(TENANTS(subDomain)) ||
             rotaryTenants.includes(TENANTS(subDomain)) ||
             treeboTenants.includes(TENANTS(subDomain)) ||
             kiviTenants.includes(TENANTS(subDomain))

@@ -304,7 +304,7 @@ const FilterBar = ({ isMygate, isBankit, subDomain }) => {
   const filterListMosaicTestChannel = [
     {
       type: "is_channel",
-      display: "Channel:",
+      display: "Channel ",
       forTenants: mosaicTestTenants,
       whereClauseValue: true,
       options: [
@@ -342,7 +342,7 @@ const FilterBar = ({ isMygate, isBankit, subDomain }) => {
     },
     {
       type: "is_channel",
-      display: "Restaurant:",
+      display: "Restaurant ",
       forTenants: mosaicTestTenants,
       whereClauseValue: true,
       options: [
@@ -383,7 +383,7 @@ const FilterBar = ({ isMygate, isBankit, subDomain }) => {
   const filterListMosaicTestReconciled = [
     {
       type: "is_reconciled",
-      display: "Orders:",
+      display: "Orders ",
       forTenants: mosaicTestTenants,
       whereClauseValue: true,
       options: [
@@ -789,6 +789,7 @@ const FilterBar = ({ isMygate, isBankit, subDomain }) => {
       intldemoTenants.includes(TENANTS(subDomain)) ||
       indifiTenants.includes(TENANTS(subDomain)) ||
       rotaryTenants.includes(TENANTS(subDomain)) ||
+      mosaicTestTenants.includes(TENANTS(subDomain)) ||
       kiviTenants.includes(TENANTS(subDomain)) ||
       treeboTenants.includes(TENANTS(subDomain)) ? (
         <div
@@ -798,7 +799,7 @@ const FilterBar = ({ isMygate, isBankit, subDomain }) => {
             padding: "0 1.5em",
             backgroundColor: "#F7F8FA",
             marginBottom: `${appRoute === `/setup` ? `4em` : `2em`}`,
-            marginTop: `${appRoute === `/setup` ? `2em` : `3.7em`}`,
+            marginTop: `${appRoute === `/setup` ? ` ` : `3.7em`}`,
           }}
         >
           <Form
@@ -955,6 +956,181 @@ const FilterBar = ({ isMygate, isBankit, subDomain }) => {
               ) : (
                 ""
               )}
+
+              {filterListMosaicTestChannel.map(
+                ({
+                  type,
+                  display,
+                  options,
+                  forTenants,
+                  excludeTenants,
+                  whereClauseValue,
+                }) => (
+                  <Form.Field style={{ whiteSpace: "nowrap" }}>
+                    {/* <span style={{ marginRight: "0.5rem" }}> {display}</span> */}
+                    <Button
+                      // className="mosaic_dropdown"
+                      style={{
+                        // width: "170px",
+                        backgroundColor: "white",
+                        // border: "1px solid #DDDDDD",
+                      }}
+                    >
+                      {/* Is Captured{' '} */}
+                      <Dropdown
+                        inline
+                        icon="chevron down"
+                        header="Status"
+                        options={options.map((e) => ({
+                          ...e,
+                          text: display + " " + e.text,
+                        }))}
+                        // defaultValue={filter && filter[type]||filter.whereClause[type] ? filter[type] ||filter.whereClause[type]: options[0].value}
+                        defaultValue={
+                          filter
+                            ? filter.hasOwnProperty(type)
+                              ? filter[type]
+                              : filter.whereClause.hasOwnProperty(type)
+                              ? filter.whereClause[type]
+                              : options[0].value
+                            : options[0].value
+                        }
+                        onChange={(e, d) =>
+                          onFilterOptionChange(
+                            type,
+                            e,
+                            d.value,
+                            whereClauseValue
+                          )
+                        }
+                      />
+                    </Button>
+                  </Form.Field>
+                )
+              )}
+
+              {appRoute === "/order"
+                ? filterListMosaicTestReconciled.map(
+                    ({
+                      type,
+                      display,
+                      options,
+                      forTenants,
+                      excludeTenants,
+                      whereClauseValue,
+                    }) => (
+                      <Form.Field style={{ whiteSpace: "nowrap" }}>
+                        {/* <span style={{ marginRight: "0.5rem" }}> {display}</span> */}
+                        <Button
+                          // className="mosaic_dropdown"
+                          style={{
+                            // width: "170px",
+                            backgroundColor: "white",
+                            // border: "1px solid #DDDDDD",
+                          }}
+                        >
+                          {/* Is Captured{' '} */}
+                          <Dropdown
+                            inline
+                            icon="chevron down"
+                            header="Status"
+                            options={options.map((e) => ({
+                              ...e,
+                              text: display + " " + e.text,
+                            }))}
+                            // defaultValue={filter && filter[type]||filter.whereClause[type] ? filter[type] ||filter.whereClause[type]: options[0].value}
+                            defaultValue={
+                              filter
+                                ? filter.hasOwnProperty(type)
+                                  ? filter[type]
+                                  : filter.whereClause.hasOwnProperty(type)
+                                  ? filter.whereClause[type]
+                                  : options[0].value
+                                : options[0].value
+                            }
+                            onChange={(e, d) =>
+                              onFilterOptionChange(
+                                type,
+                                e,
+                                d.value,
+                                whereClauseValue
+                              )
+                            }
+                          />
+                        </Button>
+                      </Form.Field>
+                    )
+                  )
+                : null}
+
+              {mosaicTestTenants.includes(TENANTS(subDomain)) &&
+              (appRoute === "/order" || appRoute === "/transaction")
+                ? filterListMosaicTestOrder.map(
+                    ({
+                      type,
+                      display,
+                      options,
+                      forTenants,
+                      excludeTenants,
+                      whereClauseValue,
+                    }) =>
+                      (
+                        forTenants
+                          ? forTenants.includes(TENANTS(subDomain))
+                          : excludeTenants
+                          ? !excludeTenants.includes(TENANTS(subDomain))
+                          : true
+                      ) ? (
+                        <Form.Field style={{ whiteSpace: "nowrap" }}>
+                          <span style={{ marginRight: "0.5rem" }}>
+                            {" "}
+                            {display}
+                          </span>
+                          <Button
+                            className="mosaic_dropdown"
+                            style={{
+                              // width: "210px",
+                              width: `${
+                                appRoute === `/order` ? `210px` : `170px`
+                              }`,
+                              backgroundColor: "white",
+                              border: "1px solid #DDDDDD",
+                            }}
+                          >
+                            {/* Is Captured{' '} */}
+                            <Dropdown
+                              inline
+                              icon="chevron down"
+                              header="Status"
+                              options={options.map((e) => ({
+                                ...e,
+                                text: e.text,
+                              }))}
+                              // defaultValue={filter && filter[type]||filter.whereClause[type] ? filter[type] ||filter.whereClause[type]: options[0].value}
+                              defaultValue={
+                                filter
+                                  ? filter.hasOwnProperty(type)
+                                    ? filter[type]
+                                    : filter.whereClause.hasOwnProperty(type)
+                                    ? filter.whereClause[type]
+                                    : options[0].value
+                                  : options[0].value
+                              }
+                              onChange={(e, d) =>
+                                onFilterOptionChange(
+                                  type,
+                                  e,
+                                  d.value,
+                                  whereClauseValue
+                                )
+                              }
+                            />
+                          </Button>
+                        </Form.Field>
+                      ) : null
+                  )
+                : null}
+
               {(demoTenants.includes(TENANTS(subDomain)) ||
                 mygateTestTenants.includes(TENANTS(subDomain)) ||
                 intldemoTenants.includes(TENANTS(subDomain))) &&
@@ -1073,76 +1249,6 @@ const FilterBar = ({ isMygate, isBankit, subDomain }) => {
                         onFilterOptionChange("is_settled", e, d.value)
                       }
                     />
-                  </Button>
-                </Form.Field>
-              ) : (
-                ""
-              )}
-              {(demoTenants.includes(TENANTS(subDomain)) ||
-                mygateTestTenants.includes(TENANTS(subDomain)) ||
-                intldemoTenants.includes(TENANTS(subDomain))) &&
-              (appRoute === "/reconciliation" || appRoute === "/commission") ? (
-                <Form.Field style={{ whiteSpace: "nowrap" }}>
-                  <Button>
-                    {/* Is Paid Out{' '} */}
-                    <Dropdown
-                      icon="chevron down"
-                      style={{ backgroundColor: "white", borderRadius: "4px" }}
-                      inline
-                      header="Status"
-                      options={statusOptions.map((e) => ({
-                        ...e,
-                        text: "Paid Out for " + e.text,
-                      }))}
-                      defaultValue={
-                        filter && filter["is_paid_out"]
-                          ? filter["is_paid_out"]
-                          : statusOptions[0].value
-                      }
-                      onChange={(e, d) =>
-                        onFilterOptionChange("is_paid_out", e, d.value)
-                      }
-                    />
-                  </Button>
-                </Form.Field>
-              ) : (
-                ""
-              )}
-
-              {(TENANTS(subDomain) !== TENANT_IDs.bankittest &&
-                !indifiTenants.includes(TENANTS(subDomain)) &&
-                appRoute === "/") ||
-              appRoute === "/reconciliation" ||
-              appRoute === "/commission" ? (
-                <Form.Field style={{ whiteSpace: "nowrap" }}>
-                  <Button as="div" labelPosition="left">
-                    <Input
-                      type="text"
-                      placeholder="Search by any value"
-                      defaultValue={wildText}
-                      onChange={(e, d) => setWildText(d.value)}
-                    />
-                    <Button
-                      style={{
-                        padding: "0",
-                        backgroundColor: "#f7f8fa",
-                        border: "1px solid #cccfd9",
-                        color: "#6b707d",
-                      }}
-                      icon
-                      onClick={onSearch}
-                    >
-                      <Image
-                        src="images/search.png"
-                        style={{
-                          width: "18px",
-                          marginLeft: "0.5rem",
-                          marginRight: "0.9rem",
-                        }}
-                        size="mini"
-                      />
-                      {/* <Icon name="search" /> */}
-                    </Button>
                   </Button>
                 </Form.Field>
               ) : (
@@ -1543,142 +1649,9 @@ const FilterBar = ({ isMygate, isBankit, subDomain }) => {
                   )
                 : null}
 
-              {mosaicTestTenants.includes(TENANTS(subDomain)) &&
-              (appRoute === "/order" || appRoute === "/transaction")
-                ? filterListMosaicTestOrder.map(
-                    ({
-                      type,
-                      display,
-                      options,
-                      forTenants,
-                      excludeTenants,
-                      whereClauseValue,
-                    }) =>
-                      (
-                        forTenants
-                          ? forTenants.includes(TENANTS(subDomain))
-                          : excludeTenants
-                          ? !excludeTenants.includes(TENANTS(subDomain))
-                          : true
-                      ) ? (
-                        <Form.Field style={{ whiteSpace: "nowrap" }}>
-                          <span style={{ marginRight: "0.5rem" }}>
-                            {" "}
-                            {display}
-                          </span>
-                          <Button
-                            className="mosaic_dropdown"
-                            style={{
-                              // width: "210px",
-                              width: `${
-                                appRoute === `/order` ? `210px` : `170px`
-                              }`,
-                              backgroundColor: "white",
-                              border: "1px solid #DDDDDD",
-                            }}
-                          >
-                            {/* Is Captured{' '} */}
-                            <Dropdown
-                              inline
-                              icon="chevron down"
-                              header="Status"
-                              options={options.map((e) => ({
-                                ...e,
-                                text: e.text,
-                              }))}
-                              // defaultValue={filter && filter[type]||filter.whereClause[type] ? filter[type] ||filter.whereClause[type]: options[0].value}
-                              defaultValue={
-                                filter
-                                  ? filter.hasOwnProperty(type)
-                                    ? filter[type]
-                                    : filter.whereClause.hasOwnProperty(type)
-                                    ? filter.whereClause[type]
-                                    : options[0].value
-                                  : options[0].value
-                              }
-                              onChange={(e, d) =>
-                                onFilterOptionChange(
-                                  type,
-                                  e,
-                                  d.value,
-                                  whereClauseValue
-                                )
-                              }
-                            />
-                          </Button>
-                        </Form.Field>
-                      ) : null
-                  )
-                : null}
-
               {mosaicTenants.includes(TENANTS(subDomain)) &&
               appRoute === "/order"
                 ? filterListMosaicReconciled.map(
-                    ({
-                      type,
-                      display,
-                      options,
-                      forTenants,
-                      excludeTenants,
-                      whereClauseValue,
-                    }) =>
-                      (
-                        forTenants
-                          ? forTenants.includes(TENANTS(subDomain))
-                          : excludeTenants
-                          ? !excludeTenants.includes(TENANTS(subDomain))
-                          : true
-                      ) ? (
-                        <Form.Field style={{ whiteSpace: "nowrap" }}>
-                          <span style={{ marginRight: "0.5rem" }}>
-                            {" "}
-                            {display}
-                          </span>
-                          <Button
-                            className="mosaic_dropdown"
-                            style={{
-                              width: "170px",
-                              backgroundColor: "white",
-                              border: "1px solid #DDDDDD",
-                            }}
-                          >
-                            {/* Is Captured{' '} */}
-                            <Dropdown
-                              inline
-                              icon="chevron down"
-                              header="Status"
-                              options={options.map((e) => ({
-                                ...e,
-                                text: e.text,
-                              }))}
-                              // defaultValue={filter && filter[type]||filter.whereClause[type] ? filter[type] ||filter.whereClause[type]: options[0].value}
-                              defaultValue={
-                                filter
-                                  ? filter.hasOwnProperty(type)
-                                    ? filter[type]
-                                    : filter.whereClause.hasOwnProperty(type)
-                                    ? filter.whereClause[type]
-                                    : options[0].value
-                                  : options[0].value
-                              }
-                              onChange={(e, d) =>
-                                onFilterOptionChange(
-                                  type,
-                                  e,
-                                  d.value,
-                                  whereClauseValue
-                                )
-                              }
-                            />
-                          </Button>
-                        </Form.Field>
-                      ) : null
-                  )
-                : null}
-
-              {mosaicTestTenants.includes(TENANTS(subDomain)) &&
-              appRoute === "/order"
-                ? filterListMosaicTestReconciled.map(
                     ({
                       type,
                       display,

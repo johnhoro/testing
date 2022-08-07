@@ -285,7 +285,7 @@ const DashboardPage = ({
         style={{
           display: "flex",
           // justifyContent: "space-between",
-          border: "1px solid #bbbbbb",
+          border: "1px solid rgb(221,221,221)",
           padding: "1em",
           marginBottom: "1rem",
         }}

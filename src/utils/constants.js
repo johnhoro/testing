@@ -414,7 +414,7 @@ export const sourceTypes = (key) => {
     [TENANT_IDs.mosaictest]: [
       {
         key: "eatfit_metabase",
-        text: "Metabase",
+        text: "POS",
         value: "eatfit_metabase",
       },
       {

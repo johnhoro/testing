@@ -24,6 +24,7 @@ import {
   intldemoTenants,
   mygateTestTenants,
   indifiTenants,
+  mosaicTestTenants,
 } from "../utils/constants";
 import { formatDateString } from "../utils/formatingUtil";
 import ConnectorAction from "./Connectors/connectorAction";
@@ -135,7 +136,7 @@ const SetupSources = ({ isMygate = false, subDomain = subDomain }) => {
   let source_option = [
     {
       key: "eatfit_metabase",
-      text: "Metabase",
+      text: "POS",
       value: "eatfit_metabase",
     },
     {
@@ -159,6 +160,7 @@ const SetupSources = ({ isMygate = false, subDomain = subDomain }) => {
       intldemoTenants.includes(TENANTS(subDomain)) ||
       rotaryTenants.includes(TENANTS(subDomain)) ||
       treeboTenants.includes(TENANTS(subDomain)) ||
+      mosaicTestTenants.includes(TENANTS(subDomain)) ||
       kiviTenants.includes(TENANTS(subDomain)) ? (
         <Table.HeaderCell
           colSpan="9"
@@ -366,6 +368,7 @@ const SetupSources = ({ isMygate = false, subDomain = subDomain }) => {
 
   const DemoColumn =
     !kiviTenants.includes(TENANTS(subDomain)) &&
+    !mosaicTestTenants.includes(TENANTS(subDomain)) &&
     !treeboTenants.includes(TENANTS(subDomain))
       ? [
           {
@@ -460,6 +463,7 @@ const SetupSources = ({ isMygate = false, subDomain = subDomain }) => {
           {
             key: "type",
             name: "Name",
+            style: { backgroundColor: "red" },
             template: (row) => sourceTypes(row.type)?.text,
           },
           {
@@ -501,6 +505,8 @@ const SetupSources = ({ isMygate = false, subDomain = subDomain }) => {
     {
       key: "type",
       name: "Name",
+      // style: { borderLeft: "1px solid red" },
+      style: { textAlign: "right", borderLeft: "1px solid red" },
       template: (row) => sourceTypes(row.type)?.text,
     },
     {
@@ -539,6 +545,7 @@ const SetupSources = ({ isMygate = false, subDomain = subDomain }) => {
     mygateTestTenants.includes(TENANTS(subDomain)) ||
     intldemoTenants.includes(TENANTS(subDomain)) ||
     rotaryTenants.includes(TENANTS(subDomain)) ||
+    mosaicTestTenants.includes(TENANTS(subDomain)) ||
     treeboTenants.includes(TENANTS(subDomain)) ||
     kiviTenants.includes(TENANTS(subDomain))
       ? DemoColumn
