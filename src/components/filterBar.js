@@ -784,1018 +784,170 @@ const FilterBar = ({ isMygate, isBankit, subDomain }) => {
 
   return (
     <>
-      {demoTenants.includes(TENANTS(subDomain)) ||
-      mygateTestTenants.includes(TENANTS(subDomain)) ||
-      intldemoTenants.includes(TENANTS(subDomain)) ||
-      indifiTenants.includes(TENANTS(subDomain)) ||
-      rotaryTenants.includes(TENANTS(subDomain)) ||
-      mosaicTestTenants.includes(TENANTS(subDomain)) ||
-      kiviTenants.includes(TENANTS(subDomain)) ||
-      treeboTenants.includes(TENANTS(subDomain)) ? (
-        <div
-          className="demo_filter"
+      <div
+        className="demo_filter"
+        style={{
+          borderBottom: "1px solid #CCCFD9",
+          padding: "0 1.5em",
+          backgroundColor: "#F7F8FA",
+          marginBottom: `${appRoute === `/setup` ? `4em` : `2em`}`,
+          marginTop: `${appRoute === `/setup` ? ` ` : `3.7em`}`,
+        }}
+      >
+        <Form
           style={{
-            borderBottom: "1px solid #CCCFD9",
-            padding: "0 1.5em",
-            backgroundColor: "#F7F8FA",
-            marginBottom: `${appRoute === `/setup` ? `4em` : `2em`}`,
-            marginTop: `${appRoute === `/setup` ? ` ` : `3.7em`}`,
+            paddingTop: `${appRoute === `/setup` ? `0` : `1em`}`,
+            paddingBottom: `${appRoute === `/setup` ? `0` : `1em`}`,
           }}
         >
-          <Form
-            style={{
-              paddingTop: `${appRoute === `/setup` ? `0` : `1em`}`,
-              paddingBottom: `${appRoute === `/setup` ? `0` : `1em`}`,
-            }}
-          >
-            <Form.Group>
-              {appRoute !== "/setup" ? (
-                <Form.Field stretched style={{ whiteSpace: "nowrap" }}>
+          <Form.Group>
+            {appRoute !== "/setup" ? (
+              <Form.Field stretched style={{ whiteSpace: "nowrap" }}>
+                <Button as="div" labelPosition="left" onClick={onCalendarOpen}>
+                  <Label>
+                    {lightFormat(filter.startDate, "yyyy-MM-dd") +
+                      " - " +
+                      lightFormat(filter.endDate, "yyyy-MM-dd")}
+                  </Label>
                   <Button
-                    as="div"
-                    labelPosition="left"
-                    onClick={onCalendarOpen}
+                    style={{
+                      padding: "0",
+                      backgroundColor: "#f7f8fa",
+                      border: "1px solid #cccfd9",
+                      color: "#6b707d",
+                    }}
+                    icon
                   >
-                    <Label>
-                      {lightFormat(filter.startDate, "yyyy-MM-dd") +
-                        " - " +
-                        lightFormat(filter.endDate, "yyyy-MM-dd")}
-                    </Label>
-                    <Button
+                    <Image
+                      src="images/calender.png"
                       style={{
-                        padding: "0",
-                        backgroundColor: "#f7f8fa",
-                        border: "1px solid #cccfd9",
-                        color: "#6b707d",
+                        width: "17px",
+                        height: "17px",
+                        margin: "7px",
                       }}
-                      icon
-                    >
-                      <Image
-                        src="images/calender.png"
-                        style={{
-                          width: "17px",
-                          height: "17px",
-                          margin: "7px",
-                        }}
-                        size="mini"
-                      />
-                      {/* <Icon name="calendar alternate outline" /> */}
-                    </Button>
-                  </Button>
-                  <Modal
-                    onClose={() => setIsCalendarOpen(false)}
-                    onOpen={() => setIsCalendarOpen(true)}
-                    open={isCalendarOpen}
-                  >
-                    <DateRangePicker
-                      onChange={handleDateRangeSelect}
-                      showSelectionPreview={true}
-                      moveRangeOnFirstSelection={false}
-                      months={2}
-                      ranges={[
-                        {
-                          startDate: filter.startDate,
-                          endDate: filter.endDate,
-                          key: "selection",
-                        },
-                      ]}
-                      direction="horizontal"
+                      size="mini"
                     />
-                  </Modal>
+                    {/* <Icon name="calendar alternate outline" /> */}
+                  </Button>
+                </Button>
+                <Modal
+                  onClose={() => setIsCalendarOpen(false)}
+                  onOpen={() => setIsCalendarOpen(true)}
+                  open={isCalendarOpen}
+                >
+                  <DateRangePicker
+                    onChange={handleDateRangeSelect}
+                    showSelectionPreview={true}
+                    moveRangeOnFirstSelection={false}
+                    months={2}
+                    ranges={[
+                      {
+                        startDate: filter.startDate,
+                        endDate: filter.endDate,
+                        key: "selection",
+                      },
+                    ]}
+                    direction="horizontal"
+                  />
+                </Modal>
+              </Form.Field>
+            ) : (
+              ""
+            )}
+
+            {filterListMosaicTestChannel.map(
+              ({
+                type,
+                display,
+                options,
+                forTenants,
+                excludeTenants,
+                whereClauseValue,
+              }) => (
+                <Form.Field style={{ whiteSpace: "nowrap" }}>
+                  <Button
+                    style={{
+                      backgroundColor: "white",
+                    }}
+                  >
+                    <Dropdown
+                      inline
+                      icon="chevron down"
+                      header="Status"
+                      options={options.map((e) => ({
+                        ...e,
+                        text: display + " " + e.text,
+                      }))}
+                      // defaultValue={filter && filter[type]||filter.whereClause[type] ? filter[type] ||filter.whereClause[type]: options[0].value}
+                      defaultValue={
+                        filter
+                          ? filter.hasOwnProperty(type)
+                            ? filter[type]
+                            : filter.whereClause.hasOwnProperty(type)
+                            ? filter.whereClause[type]
+                            : options[0].value
+                          : options[0].value
+                      }
+                      onChange={(e, d) =>
+                        onFilterOptionChange(type, e, d.value, whereClauseValue)
+                      }
+                    />
+                  </Button>
                 </Form.Field>
-              ) : (
-                ""
-              )}
-              {appRoute === "/reconciliation" || appRoute === "/commission" ? (
-                <>
-                  {!rotaryTenants.includes(TENANTS(subDomain)) &&
-                  !kiviTenants.includes(TENANTS(subDomain)) &&
-                  !treeboTenants.includes(TENANTS(subDomain)) ? (
+              )
+            )}
+
+            {appRoute === "/order"
+              ? filterListMosaicTestReconciled.map(
+                  ({
+                    type,
+                    display,
+                    options,
+                    forTenants,
+                    excludeTenants,
+                    whereClauseValue,
+                  }) => (
                     <Form.Field style={{ whiteSpace: "nowrap" }}>
-                      <Button>
-                        {/* Is Captured{' '} */}
+                      <Button
+                        style={{
+                          backgroundColor: "white",
+                        }}
+                      >
                         <Dropdown
-                          icon="chevron down"
-                          style={{
-                            backgroundColor: "white",
-                            borderRadius: "4px",
-                          }}
                           inline
+                          icon="chevron down"
                           header="Status"
-                          options={statusOptions.map((e) => ({
+                          options={options.map((e) => ({
                             ...e,
-                            text: "Captured for " + e.text,
+                            text: display + " " + e.text,
                           }))}
+                          // defaultValue={filter && filter[type]||filter.whereClause[type] ? filter[type] ||filter.whereClause[type]: options[0].value}
                           defaultValue={
-                            filter && filter["is_captured"]
-                              ? filter["is_captured"]
-                              : statusOptions[0].value
+                            filter
+                              ? filter.hasOwnProperty(type)
+                                ? filter[type]
+                                : filter.whereClause.hasOwnProperty(type)
+                                ? filter.whereClause[type]
+                                : options[0].value
+                              : options[0].value
                           }
                           onChange={(e, d) =>
-                            onFilterOptionChange("is_captured", e, d.value)
+                            onFilterOptionChange(
+                              type,
+                              e,
+                              d.value,
+                              whereClauseValue
+                            )
                           }
                         />
                       </Button>
                     </Form.Field>
-                  ) : (
-                    filterList.map(
-                      ({
-                        type,
-                        display,
-                        options,
-                        forTenants,
-                        excludeTenants,
-                        whereClauseValue,
-                      }) =>
-                        (
-                          forTenants
-                            ? forTenants.includes(TENANTS(subDomain))
-                            : excludeTenants
-                            ? !excludeTenants.includes(TENANTS(subDomain))
-                            : true
-                        ) ? (
-                          <Form.Field style={{ whiteSpace: "nowrap" }}>
-                            <Button>
-                              {/* Is Captured{' '} */}
-                              <Dropdown
-                                icon="chevron down"
-                                style={{
-                                  backgroundColor: "white",
-                                  borderRadius: "4px",
-                                }}
-                                inline
-                                header="Status"
-                                options={options.map((e) => ({
-                                  ...e,
-                                  text: display + " " + e.text,
-                                }))}
-                                defaultValue={
-                                  filter
-                                    ? filter.hasOwnProperty(type)
-                                      ? filter[type]
-                                      : filter.whereClause.hasOwnProperty(type)
-                                      ? filter.whereClause[type]
-                                      : options[0].value
-                                    : options[0].value
-                                }
-                                onChange={(e, d) =>
-                                  onFilterOptionChange(
-                                    type,
-                                    e,
-                                    d.value,
-                                    whereClauseValue
-                                  )
-                                }
-                              />
-                            </Button>
-                          </Form.Field>
-                        ) : null
-                    )
-                  )}
-                </>
-              ) : (
-                ""
-              )}
-
-              {filterListMosaicTestChannel.map(
-                ({
-                  type,
-                  display,
-                  options,
-                  forTenants,
-                  excludeTenants,
-                  whereClauseValue,
-                }) => (
-                  <Form.Field style={{ whiteSpace: "nowrap" }}>
-                    {/* <span style={{ marginRight: "0.5rem" }}> {display}</span> */}
-                    <Button
-                      // className="mosaic_dropdown"
-                      style={{
-                        // width: "170px",
-                        backgroundColor: "white",
-                        // border: "1px solid #DDDDDD",
-                      }}
-                    >
-                      {/* Is Captured{' '} */}
-                      <Dropdown
-                        inline
-                        icon="chevron down"
-                        header="Status"
-                        options={options.map((e) => ({
-                          ...e,
-                          text: display + " " + e.text,
-                        }))}
-                        // defaultValue={filter && filter[type]||filter.whereClause[type] ? filter[type] ||filter.whereClause[type]: options[0].value}
-                        defaultValue={
-                          filter
-                            ? filter.hasOwnProperty(type)
-                              ? filter[type]
-                              : filter.whereClause.hasOwnProperty(type)
-                              ? filter.whereClause[type]
-                              : options[0].value
-                            : options[0].value
-                        }
-                        onChange={(e, d) =>
-                          onFilterOptionChange(
-                            type,
-                            e,
-                            d.value,
-                            whereClauseValue
-                          )
-                        }
-                      />
-                    </Button>
-                  </Form.Field>
+                  )
                 )
-              )}
-
-              {appRoute === "/order"
-                ? filterListMosaicTestReconciled.map(
-                    ({
-                      type,
-                      display,
-                      options,
-                      forTenants,
-                      excludeTenants,
-                      whereClauseValue,
-                    }) => (
-                      <Form.Field style={{ whiteSpace: "nowrap" }}>
-                        {/* <span style={{ marginRight: "0.5rem" }}> {display}</span> */}
-                        <Button
-                          // className="mosaic_dropdown"
-                          style={{
-                            // width: "170px",
-                            backgroundColor: "white",
-                            // border: "1px solid #DDDDDD",
-                          }}
-                        >
-                          {/* Is Captured{' '} */}
-                          <Dropdown
-                            inline
-                            icon="chevron down"
-                            header="Status"
-                            options={options.map((e) => ({
-                              ...e,
-                              text: display + " " + e.text,
-                            }))}
-                            // defaultValue={filter && filter[type]||filter.whereClause[type] ? filter[type] ||filter.whereClause[type]: options[0].value}
-                            defaultValue={
-                              filter
-                                ? filter.hasOwnProperty(type)
-                                  ? filter[type]
-                                  : filter.whereClause.hasOwnProperty(type)
-                                  ? filter.whereClause[type]
-                                  : options[0].value
-                                : options[0].value
-                            }
-                            onChange={(e, d) =>
-                              onFilterOptionChange(
-                                type,
-                                e,
-                                d.value,
-                                whereClauseValue
-                              )
-                            }
-                          />
-                        </Button>
-                      </Form.Field>
-                    )
-                  )
-                : null}
-
-              {mosaicTestTenants.includes(TENANTS(subDomain)) &&
-              (appRoute === "/order" || appRoute === "/transaction")
-                ? filterListMosaicTestOrder.map(
-                    ({
-                      type,
-                      display,
-                      options,
-                      forTenants,
-                      excludeTenants,
-                      whereClauseValue,
-                    }) =>
-                      (
-                        forTenants
-                          ? forTenants.includes(TENANTS(subDomain))
-                          : excludeTenants
-                          ? !excludeTenants.includes(TENANTS(subDomain))
-                          : true
-                      ) ? (
-                        <Form.Field style={{ whiteSpace: "nowrap" }}>
-                          <span style={{ marginRight: "0.5rem" }}>
-                            {" "}
-                            {display}
-                          </span>
-                          <Button
-                            className="mosaic_dropdown"
-                            style={{
-                              // width: "210px",
-                              width: `${
-                                appRoute === `/order` ? `210px` : `170px`
-                              }`,
-                              backgroundColor: "white",
-                              border: "1px solid #DDDDDD",
-                            }}
-                          >
-                            {/* Is Captured{' '} */}
-                            <Dropdown
-                              inline
-                              icon="chevron down"
-                              header="Status"
-                              options={options.map((e) => ({
-                                ...e,
-                                text: e.text,
-                              }))}
-                              // defaultValue={filter && filter[type]||filter.whereClause[type] ? filter[type] ||filter.whereClause[type]: options[0].value}
-                              defaultValue={
-                                filter
-                                  ? filter.hasOwnProperty(type)
-                                    ? filter[type]
-                                    : filter.whereClause.hasOwnProperty(type)
-                                    ? filter.whereClause[type]
-                                    : options[0].value
-                                  : options[0].value
-                              }
-                              onChange={(e, d) =>
-                                onFilterOptionChange(
-                                  type,
-                                  e,
-                                  d.value,
-                                  whereClauseValue
-                                )
-                              }
-                            />
-                          </Button>
-                        </Form.Field>
-                      ) : null
-                  )
-                : null}
-
-              {(demoTenants.includes(TENANTS(subDomain)) ||
-                mygateTestTenants.includes(TENANTS(subDomain)) ||
-                intldemoTenants.includes(TENANTS(subDomain))) &&
-              (appRoute === "/reconciliation" || appRoute === "/commission") ? (
-                <Form.Field style={{ whiteSpace: "nowrap" }}>
-                  <Button>
-                    {/* Is Receipt Generated{' '} */}
-                    <Dropdown
-                      icon="chevron down"
-                      style={{ backgroundColor: "white", borderRadius: "4px" }}
-                      inline
-                      header="Status"
-                      options={statusOptions.map((e) => ({
-                        ...e,
-                        text: "Receipt Generated for " + e.text,
-                      }))}
-                      defaultValue={
-                        filter && filter["is_receipt_generated"]
-                          ? filter["is_receipt_generated"]
-                          : statusOptions[0].value
-                      }
-                      onChange={(e, d) =>
-                        onFilterOptionChange("is_receipt_generated", e, d.value)
-                      }
-                    />
-                  </Button>
-                </Form.Field>
-              ) : (
-                ""
-              )}
-
-              {indifiTenants.includes(TENANTS(subDomain)) &&
-              appRoute === "/transaction"
-                ? filterListIndifi.map(
-                    ({
-                      type,
-                      display,
-                      options,
-                      forTenants,
-                      excludeTenants,
-                      whereClauseValue,
-                    }) =>
-                      (
-                        forTenants
-                          ? forTenants.includes(TENANTS(subDomain))
-                          : excludeTenants
-                          ? !excludeTenants.includes(TENANTS(subDomain))
-                          : true
-                      ) ? (
-                        <Form.Field style={{ whiteSpace: "nowrap" }}>
-                          <span style={{ marginRight: "0.5rem" }}> </span>
-                          <Button
-                            className="mosaic_dropdown"
-                            style={{
-                              // width: "184px",
-                              backgroundColor: "white",
-                              border: "1px solid #DDDDDD",
-                            }}
-                          >
-                            {/* Is Captured{' '} */}
-                            <Dropdown
-                              inline
-                              icon="chevron down"
-                              header="Status"
-                              options={options.map((e) => ({
-                                ...e,
-                                text: display + e.text,
-                              }))}
-                              // defaultValue={filter && filter[type]||filter.whereClause[type] ? filter[type] ||filter.whereClause[type]: options[0].value}
-                              defaultValue={
-                                filter
-                                  ? filter.hasOwnProperty(type)
-                                    ? filter[type]
-                                    : filter.whereClause.hasOwnProperty(type)
-                                    ? filter.whereClause[type]
-                                    : options[0].value
-                                  : options[0].value
-                              }
-                              onChange={(e, d) =>
-                                onFilterOptionChange(
-                                  type,
-                                  e,
-                                  d.value,
-                                  whereClauseValue
-                                )
-                              }
-                            />
-                          </Button>
-                        </Form.Field>
-                      ) : null
-                  )
-                : null}
-
-              {(appRoute === "/reconciliation" || appRoute === "/commission") &&
-              !rotaryTenants.includes(TENANTS(subDomain)) &&
-              !treeboTenants.includes(TENANTS(subDomain)) &&
-              !kiviTenants.includes(TENANTS(subDomain)) ? (
-                <Form.Field style={{ whiteSpace: "nowrap" }}>
-                  <Button>
-                    {/* Is Settled{' '} */}
-                    <Dropdown
-                      icon="chevron down"
-                      style={{ backgroundColor: "white", borderRadius: "4px" }}
-                      inline
-                      header="Status"
-                      options={statusOptions.map((e) => ({
-                        ...e,
-                        text: "Setteled for " + e.text,
-                      }))}
-                      defaultValue={
-                        filter && filter["is_settled"]
-                          ? filter["is_settled"]
-                          : statusOptions[0].value
-                      }
-                      onChange={(e, d) =>
-                        onFilterOptionChange("is_settled", e, d.value)
-                      }
-                    />
-                  </Button>
-                </Form.Field>
-              ) : (
-                ""
-              )}
-
-              {/* <Form.Field stretched>
-                <Button floated='right' type='submit' onClick={onDownload}>Download</Button>
-
-            </Form.Field> */}
-            </Form.Group>
-          </Form>
-        </div>
-      ) : (
-        <div
-          style={{
-            padding: "0 1.5em",
-            marginBottom: `${appRoute === `/setup` ? `4em` : ` `}`,
-            marginTop: `${appRoute === `/setup` ? `1.7em` : `3.7em`}`,
-          }}
-        >
-          <Form
-            style={{
-              marginLeft: "5px",
-              paddingTop: `${appRoute === `/setup` ? `0` : `1em`}`,
-              paddingBottom: `${appRoute === `/setup` ? `0` : `1em`}`,
-            }}
-          >
-            <Form.Group>
-              {appRoute !== "/setup" &&
-              !mosaicTenants.includes(TENANTS(subDomain)) &&
-              !mosaicTestTenants.includes(TENANTS(subDomain)) &&
-              !indifiTenants.includes(TENANTS(subDomain)) ? (
-                <Form.Field stretched style={{ whiteSpace: "nowrap" }}>
-                  <span>Date Range: </span>
-                  <Button
-                    as="div"
-                    labelPosition="left"
-                    onClick={onCalendarOpen}
-                  >
-                    <Label>
-                      {lightFormat(filter.startDate, "yyyy-MM-dd") +
-                        "-" +
-                        lightFormat(filter.endDate, "yyyy-MM-dd")}
-                    </Label>
-                    <Button color="violet" icon>
-                      <Icon name="calendar alternate outline" />
-                    </Button>
-                  </Button>
-                  <Modal
-                    onClose={() => setIsCalendarOpen(false)}
-                    onOpen={() => setIsCalendarOpen(true)}
-                    open={isCalendarOpen}
-                  >
-                    <DateRangePicker
-                      onChange={handleDateRangeSelect}
-                      showSelectionPreview={true}
-                      moveRangeOnFirstSelection={false}
-                      months={2}
-                      ranges={[
-                        {
-                          startDate: filter.startDate,
-                          endDate: filter.endDate,
-                          key: "selection",
-                        },
-                      ]}
-                      direction="horizontal"
-                    />
-                  </Modal>
-                </Form.Field>
-              ) : (
-                ""
-              )}
-
-              {(mosaicTenants.includes(TENANTS(subDomain)) ||
-                mosaicTestTenants.includes(TENANTS(subDomain)) ||
-                indifiTenants.includes(TENANTS(subDomain))) &&
-              appRoute !== "/setup" ? (
-                <Form.Field stretched style={{ whiteSpace: "nowrap" }}>
-                  <span>Date Range: </span>
-                  <Button
-                    as="div"
-                    labelPosition="left"
-                    onClick={onCalendarOpen}
-                  >
-                    {/* <Label>
-                    {lightFormat(filter.startDate, "yyyy-MM-dd") +
-                      "-" +
-                      lightFormat(filter.endDate, "yyyy-MM-dd")}
-                  </Label> */}
-                    <Label
-                      style={{
-                        backgroundColor: "white",
-                        border: "1px solid #DDDDDD",
-                        borderRight: "none",
-                      }}
-                    >
-                      {format(filter.startDate, "d MMM yyyy") +
-                        " - " +
-                        format(filter.endDate, "d MMM yyyy")}
-                    </Label>{" "}
-                    <Button
-                      style={{
-                        backgroundColor: "white",
-                        border: "1px solid #DDDDDD",
-                        borderLeft: "none",
-                      }}
-                      icon
-                    >
-                      <Icon name="calendar alternate outline" />
-                    </Button>
-                  </Button>
-                  <Modal
-                    onClose={() => setIsCalendarOpen(false)}
-                    onOpen={() => setIsCalendarOpen(true)}
-                    open={isCalendarOpen}
-                  >
-                    <DateRangePicker
-                      onChange={handleDateRangeSelect}
-                      showSelectionPreview={true}
-                      moveRangeOnFirstSelection={false}
-                      months={2}
-                      ranges={[
-                        {
-                          startDate: filter.startDate,
-                          endDate: filter.endDate,
-                          key: "selection",
-                        },
-                      ]}
-                      direction="horizontal"
-                    />
-                  </Modal>
-                </Form.Field>
-              ) : (
-                ""
-              )}
-
-              {mosaicTenants.includes(TENANTS(subDomain)) &&
-              appRoute !== "/setup"
-                ? filterListMosaicChannel.map(
-                    ({
-                      type,
-                      display,
-                      options,
-                      forTenants,
-                      excludeTenants,
-                      whereClauseValue,
-                    }) =>
-                      (
-                        forTenants
-                          ? forTenants.includes(TENANTS(subDomain))
-                          : excludeTenants
-                          ? !excludeTenants.includes(TENANTS(subDomain))
-                          : true
-                      ) ? (
-                        <Form.Field style={{ whiteSpace: "nowrap" }}>
-                          <span style={{ marginRight: "0.5rem" }}>
-                            {" "}
-                            {display}
-                          </span>
-                          <Button
-                            className="mosaic_dropdown"
-                            style={{
-                              width: "150px",
-                              backgroundColor: "white",
-                              border: "1px solid #DDDDDD",
-                            }}
-                          >
-                            {/* Is Captured{' '} */}
-                            <Dropdown
-                              inline
-                              icon="chevron down"
-                              header="Status"
-                              options={options.map((e) => ({
-                                ...e,
-                                text: e.text,
-                              }))}
-                              // defaultValue={filter && filter[type]||filter.whereClause[type] ? filter[type] ||filter.whereClause[type]: options[0].value}
-                              defaultValue={
-                                filter
-                                  ? filter.hasOwnProperty(type)
-                                    ? filter[type]
-                                    : filter.whereClause.hasOwnProperty(type)
-                                    ? filter.whereClause[type]
-                                    : options[0].value
-                                  : options[0].value
-                              }
-                              onChange={(e, d) =>
-                                onFilterOptionChange(
-                                  type,
-                                  e,
-                                  d.value,
-                                  whereClauseValue
-                                )
-                              }
-                            />
-                          </Button>
-                        </Form.Field>
-                      ) : null
-                  )
-                : null}
-
-              {mosaicTestTenants.includes(TENANTS(subDomain)) &&
-              appRoute !== "/setup"
-                ? filterListMosaicTestChannel.map(
-                    ({
-                      type,
-                      display,
-                      options,
-                      forTenants,
-                      excludeTenants,
-                      whereClauseValue,
-                    }) =>
-                      (
-                        forTenants
-                          ? forTenants.includes(TENANTS(subDomain))
-                          : excludeTenants
-                          ? !excludeTenants.includes(TENANTS(subDomain))
-                          : true
-                      ) ? (
-                        <Form.Field style={{ whiteSpace: "nowrap" }}>
-                          <span style={{ marginRight: "0.5rem" }}>
-                            {" "}
-                            {display}
-                          </span>
-                          <Button
-                            className="mosaic_dropdown"
-                            style={{
-                              width: "170px",
-                              backgroundColor: "white",
-                              border: "1px solid #DDDDDD",
-                            }}
-                          >
-                            {/* Is Captured{' '} */}
-                            <Dropdown
-                              inline
-                              icon="chevron down"
-                              header="Status"
-                              options={options.map((e) => ({
-                                ...e,
-                                text: e.text,
-                              }))}
-                              // defaultValue={filter && filter[type]||filter.whereClause[type] ? filter[type] ||filter.whereClause[type]: options[0].value}
-                              defaultValue={
-                                filter
-                                  ? filter.hasOwnProperty(type)
-                                    ? filter[type]
-                                    : filter.whereClause.hasOwnProperty(type)
-                                    ? filter.whereClause[type]
-                                    : options[0].value
-                                  : options[0].value
-                              }
-                              onChange={(e, d) =>
-                                onFilterOptionChange(
-                                  type,
-                                  e,
-                                  d.value,
-                                  whereClauseValue
-                                )
-                              }
-                            />
-                          </Button>
-                        </Form.Field>
-                      ) : null
-                  )
-                : null}
-
-              {indifiTenants.includes(TENANTS(subDomain)) &&
-              appRoute === "/transaction"
-                ? filterListIndifi.map(
-                    ({
-                      type,
-                      display,
-                      options,
-                      forTenants,
-                      excludeTenants,
-                      whereClauseValue,
-                    }) =>
-                      (
-                        forTenants
-                          ? forTenants.includes(TENANTS(subDomain))
-                          : excludeTenants
-                          ? !excludeTenants.includes(TENANTS(subDomain))
-                          : true
-                      ) ? (
-                        <Form.Field style={{ whiteSpace: "nowrap" }}>
-                          <span style={{ marginRight: "0.5rem" }}>
-                            {" "}
-                            {display}
-                          </span>
-                          <Button
-                            className="mosaic_dropdown"
-                            style={{
-                              width: "120px",
-                              backgroundColor: "white",
-                              border: "1px solid #DDDDDD",
-                            }}
-                          >
-                            {/* Is Captured{' '} */}
-                            <Dropdown
-                              inline
-                              icon="chevron down"
-                              header="Status"
-                              options={options.map((e) => ({
-                                ...e,
-                                text: e.text,
-                              }))}
-                              // defaultValue={filter && filter[type]||filter.whereClause[type] ? filter[type] ||filter.whereClause[type]: options[0].value}
-                              defaultValue={
-                                filter
-                                  ? filter.hasOwnProperty(type)
-                                    ? filter[type]
-                                    : filter.whereClause.hasOwnProperty(type)
-                                    ? filter.whereClause[type]
-                                    : options[0].value
-                                  : options[0].value
-                              }
-                              onChange={(e, d) =>
-                                onFilterOptionChange(
-                                  type,
-                                  e,
-                                  d.value,
-                                  whereClauseValue
-                                )
-                              }
-                            />
-                          </Button>
-                        </Form.Field>
-                      ) : null
-                  )
-                : null}
-              {(mosaicTenants.includes(TENANTS(subDomain)) ||
-                indifiTenants.includes(TENANTS(subDomain))) &&
-              (appRoute === "/order" || appRoute === "/transaction")
-                ? filterListMosaicOrder.map(
-                    ({
-                      type,
-                      display,
-                      options,
-                      forTenants,
-                      excludeTenants,
-                      whereClauseValue,
-                    }) =>
-                      (
-                        forTenants
-                          ? forTenants.includes(TENANTS(subDomain))
-                          : excludeTenants
-                          ? !excludeTenants.includes(TENANTS(subDomain))
-                          : true
-                      ) ? (
-                        <Form.Field style={{ whiteSpace: "nowrap" }}>
-                          <span style={{ marginRight: "0.5rem" }}>
-                            {" "}
-                            {display}
-                          </span>
-                          <Button
-                            className="mosaic_dropdown"
-                            style={{
-                              // width: "210px",
-                              width: `${
-                                appRoute === `/order` ? `210px` : `170px`
-                              }`,
-                              backgroundColor: "white",
-                              border: "1px solid #DDDDDD",
-                            }}
-                          >
-                            {/* Is Captured{' '} */}
-                            <Dropdown
-                              inline
-                              icon="chevron down"
-                              header="Status"
-                              options={options.map((e) => ({
-                                ...e,
-                                text: e.text,
-                              }))}
-                              // defaultValue={filter && filter[type]||filter.whereClause[type] ? filter[type] ||filter.whereClause[type]: options[0].value}
-                              defaultValue={
-                                filter
-                                  ? filter.hasOwnProperty(type)
-                                    ? filter[type]
-                                    : filter.whereClause.hasOwnProperty(type)
-                                    ? filter.whereClause[type]
-                                    : options[0].value
-                                  : options[0].value
-                              }
-                              onChange={(e, d) =>
-                                onFilterOptionChange(
-                                  type,
-                                  e,
-                                  d.value,
-                                  whereClauseValue
-                                )
-                              }
-                            />
-                          </Button>
-                        </Form.Field>
-                      ) : null
-                  )
-                : null}
-
-              {mosaicTenants.includes(TENANTS(subDomain)) &&
-              appRoute === "/order"
-                ? filterListMosaicReconciled.map(
-                    ({
-                      type,
-                      display,
-                      options,
-                      forTenants,
-                      excludeTenants,
-                      whereClauseValue,
-                    }) =>
-                      (
-                        forTenants
-                          ? forTenants.includes(TENANTS(subDomain))
-                          : excludeTenants
-                          ? !excludeTenants.includes(TENANTS(subDomain))
-                          : true
-                      ) ? (
-                        <Form.Field style={{ whiteSpace: "nowrap" }}>
-                          <span style={{ marginRight: "0.5rem" }}>
-                            {" "}
-                            {display}
-                          </span>
-                          <Button
-                            className="mosaic_dropdown"
-                            style={{
-                              width: "170px",
-                              backgroundColor: "white",
-                              border: "1px solid #DDDDDD",
-                            }}
-                          >
-                            {/* Is Captured{' '} */}
-                            <Dropdown
-                              inline
-                              icon="chevron down"
-                              header="Status"
-                              options={options.map((e) => ({
-                                ...e,
-                                text: e.text,
-                              }))}
-                              // defaultValue={filter && filter[type]||filter.whereClause[type] ? filter[type] ||filter.whereClause[type]: options[0].value}
-                              defaultValue={
-                                filter
-                                  ? filter.hasOwnProperty(type)
-                                    ? filter[type]
-                                    : filter.whereClause.hasOwnProperty(type)
-                                    ? filter.whereClause[type]
-                                    : options[0].value
-                                  : options[0].value
-                              }
-                              onChange={(e, d) =>
-                                onFilterOptionChange(
-                                  type,
-                                  e,
-                                  d.value,
-                                  whereClauseValue
-                                )
-                              }
-                            />
-                          </Button>
-                        </Form.Field>
-                      ) : null
-                  )
-                : null}
-
-              {appRoute === "/reconciliation" || appRoute === "/commission"
-                ? filterList.map(
-                    ({
-                      type,
-                      display,
-                      options,
-                      forTenants,
-                      excludeTenants,
-                      whereClauseValue,
-                    }) =>
-                      (
-                        forTenants
-                          ? forTenants.includes(TENANTS(subDomain))
-                          : excludeTenants
-                          ? !excludeTenants.includes(TENANTS(subDomain))
-                          : true
-                      ) ? (
-                        <Form.Field style={{ whiteSpace: "nowrap" }}>
-                          <Button>
-                            {/* Is Captured{' '} */}
-                            <Dropdown
-                              inline
-                              header="Status"
-                              options={options.map((e) => ({
-                                ...e,
-                                text: display + " " + e.text,
-                              }))}
-                              // defaultValue={filter && filter[type]||filter.whereClause[type] ? filter[type] ||filter.whereClause[type]: options[0].value}
-                              defaultValue={
-                                filter
-                                  ? filter.hasOwnProperty(type)
-                                    ? filter[type]
-                                    : filter.whereClause.hasOwnProperty(type)
-                                    ? filter.whereClause[type]
-                                    : options[0].value
-                                  : options[0].value
-                              }
-                              onChange={(e, d) =>
-                                onFilterOptionChange(
-                                  type,
-                                  e,
-                                  d.value,
-                                  whereClauseValue
-                                )
-                              }
-                            />
-                          </Button>
-                        </Form.Field>
-                      ) : null
-                  )
-                : null}
-              {(!bankitTenants.includes(TENANTS(subDomain)) &&
-                !mosaicTenants.includes(TENANTS(subDomain)) &&
-                !mosaicTestTenants.includes(TENANTS(subDomain)) &&
-                !indifiTenants.includes(TENANTS(subDomain)) &&
-                appRoute === "/") ||
-              appRoute === "/reconciliation" ||
-              appRoute === "/commission" ? (
-                <Form.Field style={{ whiteSpace: "nowrap" }}>
-                  <Button as="div" labelPosition="left">
-                    <Input
-                      type="text"
-                      placeholder="Filter by any value..."
-                      defaultValue={wildText}
-                      onChange={(e, d) => setWildText(d.value)}
-                    />
-                    <Button color="violet" icon onClick={onSearch}>
-                      <Icon name="search" />
-                    </Button>
-                  </Button>
-                </Form.Field>
-              ) : (
-                ""
-              )}
-              {/* <Form.Field stretched>
-                <Button floated='right' type='submit' onClick={onDownload}>Download</Button>
-
-            </Form.Field> */}
-            </Form.Group>
-          </Form>
-        </div>
-      )}
+              : null}
+          </Form.Group>
+        </Form>
+      </div>
     </>
   );
 };

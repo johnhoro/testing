@@ -46,40 +46,8 @@ const firebaseConfig = {
 
 // firebase.initializeApp(firebaseConfig);
 
-const mygateDesignSubDomains = ["mygate", "demo", "mygatetest"];
-const bankitDesignSubDomains = ["bankit", "bankittest"];
-const mosaicDesignSubDomains = ["mosaic"];
-const mosaicTestDesignSubDomains = ["mosaictest"];
-const indifiDesignSubDomains = ["indifitest"];
-const kiviDesignSubDomains = ["kivi", "kivitest", "localhost"];
-const treeboDesignSubDomains = ["treebo", "treebotest", "localhost"];
-const eatfitSubDomains = ["eatfittest", "localhost"];
-
 function App() {
   const subDomain = window.location.hostname.split(".")[0];
-  // const isMygate = subDomain === "mygate" ? true : false;
-  const isMygate = mygateDesignSubDomains.some(
-    (domain) => domain === subDomain
-  );
-  const isBankit = bankitDesignSubDomains.some(
-    (domain) => domain === subDomain
-  );
-
-  const isMosaic = mosaicDesignSubDomains.some(
-    (domain) => domain === subDomain
-  );
-
-  const isMosaicTest = mosaicTestDesignSubDomains.some(
-    (domain) => domain === subDomain
-  );
-
-  const isIndifi = indifiDesignSubDomains.some(
-    (domain) => domain === subDomain
-  );
-
-  const isTreebo = treeboDesignSubDomains.some(
-    (domain) => domain === subDomain
-  );
 
   // const firebaseApp = firebase.getApp();
   // const auth = getAuth(firebaseApp);
@@ -124,93 +92,14 @@ function App() {
     <>
       <HashRouter>
         <Routes>
-          {/* <Route
-            path="/login"
-            element={
-              <LoginPage user={user} userLoading={userLoading} auth={auth} />
-            }
-          /> */}
-          {demoTenants.includes(TENANTS(subDomain)) ||
-          mygateTestTenants.includes(TENANTS(subDomain)) ||
-          intldemoTenants.includes(TENANTS(subDomain)) ||
-          indifiTenants.includes(TENANTS(subDomain)) ||
-          rotaryTenants.includes(TENANTS(subDomain)) ||
-          treeboTenants.includes(TENANTS(subDomain)) ||
-          kiviTenants.includes(TENANTS(subDomain)) ? (
-            <Route path="/login" element={<LoginDemo />} />
-          ) : (
-            <Route path="/login" element={<LoginPage />} />
-            // <Route path="/login" element={<DashboardPage />} />
-          )}
-          <Route
-            path="/"
-            element={
-              <PrivateRoute
-                isMygate={isMygate}
-                subDomain={subDomain}
-                // auth={auth}
-                // user={user}
-                // userLoading={userLoading}
-              />
-            }
-          >
-            <Route
-              path="/reconciliation"
-              element={<ReconciliationPage subDomain={subDomain} />}
-            />
-            {mygateTenants.includes(TENANTS(subDomain)) && (
-              <Route
-                path="/commission"
-                element={<CommissionPage subDomain={subDomain} />}
-              />
-            )}
-
-            {(demoTenants.includes(TENANTS(subDomain)) ||
-              mygateTestTenants.includes(TENANTS(subDomain)) ||
-              intldemoTenants.includes(TENANTS(subDomain))) && (
-              <Route
-                path="/commission"
-                element={<CommissionPage subDomain={subDomain} />}
-              />
-            )}
-
-            {(mosaicTenants.includes(TENANTS(subDomain)) ||
-              mosaicTestTenants.includes(TENANTS(subDomain))) && (
-              <Route
-                path="/order"
-                element={<Order isMosaic={isMosaic} subDomain={subDomain} />}
-              />
-            )}
-            {/* {(mosaicTenants.includes(TENANTS(subDomain)) ||
-              mosaicTestTenants.includes(TENANTS(subDomain))) && (
-              <Route path="/order" element={<OrdersBetel />} />
-            )} */}
-            {indifiTenants.includes(TENANTS(subDomain)) && (
-              <Route
-                path="/transaction"
-                element={
-                  <TransPage isIndifi={isIndifi} subDomain={subDomain} />
-                }
-              />
-            )}
-            {/* <Route path='/reports' element={<ReportsPage />} /> */}
+          <Route path="/login" element={<LoginDemo />} />
+          <Route path="/" element={<PrivateRoute subDomain={subDomain} />}>
+            <Route path="/order" element={<Order subDomain={subDomain} />} />
             <Route
               path="/setup"
-              element={<SetupPage isMygate={isMygate} subDomain={subDomain} />}
+              element={<SetupPage subDomain={subDomain} />}
             />
-            <Route
-              path="/"
-              element={
-                <DashboardPage
-                  // isMygate={isMygate}
-                  // isBankit={isBankit}
-                  // isMosaic={isMosaic}
-                  // isTreebo={isTreebo}
-                  // isMosaicTest={isMosaicTest}
-                  subDomain={subDomain}
-                />
-              }
-            />
+            <Route path="/" element={<DashboardPage subDomain={subDomain} />} />
           </Route>
         </Routes>
       </HashRouter>

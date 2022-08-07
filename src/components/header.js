@@ -68,197 +68,58 @@ const Header = (props) => {
 
   return (
     <>
-      {demoTenants.includes(TENANTS(subDomain)) ||
-      intldemoTenants.includes(TENANTS(subDomain)) ||
-      rotaryTenants.includes(TENANTS(subDomain)) ||
-      treeboTenants.includes(TENANTS(subDomain)) ||
-      kiviTenants.includes(TENANTS(subDomain)) ||
-      mygateTestTenants.includes(TENANTS(subDomain)) ||
-      intldemoTenants.includes(TENANTS(subDomain)) ||
-      indifiTenants.includes(TENANTS(subDomain)) ||
-      mosaicTestTenants.includes(TENANTS(subDomain)) ||
-      rotaryTenants.includes(TENANTS(subDomain)) ||
-      kiviTenants.includes(TENANTS(subDomain)) ? (
-        <div className="demo_header">
-          <Menu
-            inverted
-            fixed="top"
-            style={{ background: "#392E48" }}
-            size="large"
+      <div className="demo_header">
+        <Menu
+          inverted
+          fixed="top"
+          style={{ background: "#392E48" }}
+          size="large"
+        >
+          <Image
+            src="images/logo.png"
+            size="mini"
+            style={{ width: "30px", height: "30px", margin: "10px" }}
+          />
+          <Menu.Item
+            active={appRoute === "/"}
+            onClick={() => {
+              onMenuClick("/");
+            }}
           >
-            <Image
-              src="images/logo.png"
-              size="mini"
-              style={{ width: "30px", height: "30px", margin: "10px" }}
-            />
-
-            <Menu.Item
-              active={appRoute === "/"}
-              onClick={() => {
-                onMenuClick("/");
-              }}
-            >
-              Dashboard
-            </Menu.Item>
-            {/* {!indifiTenants.includes(TENANTS(subDomain)) && (
-              <Menu.Item
-                active={appRoute === "/reconciliation"}
-                onClick={() => {
-                  onMenuClick("/reconciliation");
-                }}
-              >
-                Reconciliation
-              </Menu.Item>
-            )} */}
-            {/* {(demoTenants.includes(TENANTS(subDomain)) ||
-              mygateTestTenants.includes(TENANTS(subDomain)) ||
-              intldemoTenants.includes(TENANTS(subDomain))) && (
-              <Menu.Item
-                active={appRoute === "/commission"}
-                onClick={() => {
-                  onMenuClick("/commission");
-                }}
-              >
-                Commission
-              </Menu.Item>
-            )} */}
-            {indifiTenants.includes(TENANTS(subDomain)) && (
-              <Menu.Item
-                color={"violet"}
-                active={appRoute === "/transaction"}
-                onClick={() => {
-                  onMenuClick("/transaction");
-                }}
-              >
-                Transactions
-              </Menu.Item>
-            )}
-            <Menu.Item
-              active={appRoute === "/order"}
-              onClick={() => {
-                onMenuClick("/order");
-              }}
-            >
-              Order
-            </Menu.Item>
-            <Menu.Item
-              active={appRoute === "/setup"}
-              onClick={() => {
-                onMenuClick("/setup");
-              }}
-            >
-              Configuration
-            </Menu.Item>
-            <Menu.Item position="right">
-              <Button
-                style={{
-                  padding: "0.7em 1.5em",
-                  backgroundColor: "#6a4c93",
-                  color: "white",
-                  border: "none",
-                }}
-                as="a"
-                onClick={onHandleLogout}
-              >
-                Logout
-              </Button>
-            </Menu.Item>
-          </Menu>
-        </div>
-      ) : (
-        <div>
-          <Menu
-            inverted
-            fixed="top"
-            style={{ background: "rgb(1, 0, 71)" }}
-            size="large"
+            Dashboard
+          </Menu.Item>
+          <Menu.Item
+            active={appRoute === "/order"}
+            onClick={() => {
+              onMenuClick("/order");
+            }}
           >
-            <Image
-              src="images/logo.png"
-              size="mini"
-              style={{ width: "30px", height: "30px", margin: "10px" }}
-            />
-
-            <Menu.Item
-              color={"violet"}
-              active={appRoute === "/"}
-              onClick={() => {
-                onMenuClick("/");
+            Order
+          </Menu.Item>
+          <Menu.Item
+            active={appRoute === "/setup"}
+            onClick={() => {
+              onMenuClick("/setup");
+            }}
+          >
+            Configuration
+          </Menu.Item>
+          <Menu.Item position="right">
+            <Button
+              style={{
+                padding: "0.7em 1.5em",
+                backgroundColor: "#6a4c93",
+                color: "white",
+                border: "none",
               }}
+              as="a"
+              onClick={onHandleLogout}
             >
-              Dashboard
-            </Menu.Item>
-            {!mosaicTenants.includes(TENANTS(subDomain)) &&
-            !indifiTenants.includes(TENANTS(subDomain)) &&
-            !kiviTenants.includes(TENANTS(subDomain)) &&
-            !mosaicTestTenants.includes(TENANTS(subDomain)) &&
-            !indifiTenants.includes(TENANTS(subDomain)) ? (
-              <Menu.Item
-                color={"violet"}
-                active={appRoute === "/reconciliation"}
-                onClick={() => {
-                  onMenuClick("/reconciliation");
-                }}
-              >
-                Reconciliation
-              </Menu.Item>
-            ) : (
-              " "
-            )}
-            {(mosaicTenants.includes(TENANTS(subDomain)) ||
-              mosaicTestTenants.includes(TENANTS(subDomain))) && (
-              <Menu.Item
-                color={"violet"}
-                active={appRoute === "/order"}
-                onClick={() => {
-                  onMenuClick("/order");
-                }}
-              >
-                Orders
-              </Menu.Item>
-            )}
-
-            {mygateTenants.includes(TENANTS(subDomain)) && (
-              <Menu.Item
-                color={"violet"}
-                active={appRoute === "/commission"}
-                onClick={() => {
-                  onMenuClick("/commission");
-                }}
-              >
-                Commission
-              </Menu.Item>
-            )}
-            {/* {kiviTenants.includes(TENANTS(subDomain)) ? (
-              <Menu.Item
-                color={"violet"}
-                active={appRoute === "/payments"}
-                onClick={() => {
-                  onMenuClick("/payments");
-                }}
-              >
-                Payments
-              </Menu.Item>
-            ) : (
-              " "
-            )} */}
-            <Menu.Item
-              color={"violet"}
-              active={appRoute === "/setup"}
-              onClick={() => {
-                onMenuClick("/setup");
-              }}
-            >
-              Configuration
-            </Menu.Item>
-            <Menu.Item position="right">
-              <Button color={"violet"} as="a" onClick={onHandleLogout}>
-                Logout
-              </Button>
-            </Menu.Item>
-          </Menu>
-        </div>
-      )}
+              Logout
+            </Button>
+          </Menu.Item>
+        </Menu>
+      </div>
     </>
   );
 };
