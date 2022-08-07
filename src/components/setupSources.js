@@ -232,23 +232,10 @@ const SetupSources = ({ isMygate = false, subDomain = subDomain }) => {
 
   const defaultColumn = [
     {
-      key: "edit",
-      name: "Edit",
-      template: (row) => {
-        return (
-          <>
-            <Button icon="edit" onClick={() => onEditSource(row)} />
-          </>
-        );
-      },
-    },
-    {
-      key: "id",
-      name: "Id",
-    },
-    {
       key: "type",
-      name: "Type",
+      name: "Name",
+      // style: { borderLeft: "1px solid red" },
+      style: { textAlign: "right", borderLeft: "1px solid red" },
       template: (row) => sourceTypes(row.type)?.text,
     },
     {
@@ -260,35 +247,15 @@ const SetupSources = ({ isMygate = false, subDomain = subDomain }) => {
       },
     },
     {
-      key: "name",
-      name: "Name",
-    },
-    {
-      key: "description",
-      name: "Description",
-    },
-    {
-      key: "lastUpdatedAt",
-      name: "Last Updated",
-      template: (row, value) => {
-        return formatDateString(value);
-      },
-    },
-    {
-      key: "lastRun",
-      name: "Last Run",
-      template: (row, value) => {
-        return formatDateString(value);
-      },
-    },
-    {
       key: "actions",
       name: "Actions",
+      style: { width: "70px", border: "1px solid black" },
       template: (row) => {
         return (
           <>
             {row.connectionType === "file_upload" ? (
               <SignedFileUploadForType
+                subDomain={subDomain}
                 sourceId={row.id}
                 dataTypes={row.dataTypes}
               />
@@ -476,18 +443,7 @@ const SetupSources = ({ isMygate = false, subDomain = subDomain }) => {
     },
   ];
 
-  const columns =
-    demoTenants.includes(TENANTS(subDomain)) ||
-    mygateTestTenants.includes(TENANTS(subDomain)) ||
-    intldemoTenants.includes(TENANTS(subDomain)) ||
-    rotaryTenants.includes(TENANTS(subDomain)) ||
-    mosaicTestTenants.includes(TENANTS(subDomain)) ||
-    treeboTenants.includes(TENANTS(subDomain)) ||
-    kiviTenants.includes(TENANTS(subDomain))
-      ? DemoColumn
-      : indifiTenants.includes(TENANTS(subDomain))
-      ? DemoColumnIndifi
-      : defaultColumn;
+  const columns = defaultColumn;
 
   const j_data = [];
   return isStatusLoading ? (
