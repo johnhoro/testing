@@ -23,10 +23,6 @@ const BasicList = (params) => {
           borderLeft: `${
             (demoTenants.includes(TENANTS(subDomain)) ||
               mygateTestTenants.includes(TENANTS(subDomain)) ||
-              intldemoTenants.includes(TENANTS(subDomain)) ||
-              indifiTenants.includes(TENANTS(subDomain)) ||
-              rotaryTenants.includes(TENANTS(subDomain))||
-              treeboTenants.includes(TENANTS(subDomain)) ||
               kiviTenants.includes(TENANTS(subDomain))) &&
             i === 0
               ? `1px solid rgba(34,36,38,.1)`
@@ -34,11 +30,6 @@ const BasicList = (params) => {
           }`,
           borderRight: `${
             (demoTenants.includes(TENANTS(subDomain)) ||
-              mygateTestTenants.includes(TENANTS(subDomain)) ||
-              intldemoTenants.includes(TENANTS(subDomain)) ||
-              indifiTenants.includes(TENANTS(subDomain)) ||
-              rotaryTenants.includes(TENANTS(subDomain))||
-              treeboTenants.includes(TENANTS(subDomain)) ||
               kiviTenants.includes(TENANTS(subDomain))) &&
             i === columns.length - 1
               ? `1px solid rgba(34,36,38,.1)`
@@ -62,10 +53,6 @@ const BasicList = (params) => {
             borderLeft: `${
               (demoTenants.includes(TENANTS(subDomain)) ||
                 mygateTestTenants.includes(TENANTS(subDomain)) ||
-                intldemoTenants.includes(TENANTS(subDomain)) ||
-                indifiTenants.includes(TENANTS(subDomain)) ||
-                rotaryTenants.includes(TENANTS(subDomain)) ||
-                treeboTenants.includes(TENANTS(subDomain)) ||
                 kiviTenants.includes(TENANTS(subDomain))) &&
               columnIndex === `0`
                 ? `1px solid rgba(34,36,38,.1)`
@@ -74,10 +61,6 @@ const BasicList = (params) => {
             borderRight: `${
               (demoTenants.includes(TENANTS(subDomain)) ||
                 mygateTestTenants.includes(TENANTS(subDomain)) ||
-                intldemoTenants.includes(TENANTS(subDomain)) ||
-                indifiTenants.includes(TENANTS(subDomain)) ||
-                rotaryTenants.includes(TENANTS(subDomain)) ||
-                treeboTenants.includes(TENANTS(subDomain)) ||
                 kiviTenants.includes(TENANTS(subDomain))) &&
               columnIndex === String(columns.length - 1)
                 ? `1px solid rgba(34,36,38,.1)`
@@ -102,10 +85,6 @@ const BasicList = (params) => {
           backgroundColor: `${
             (demoTenants.includes(TENANTS(subDomain)) ||
               mygateTestTenants.includes(TENANTS(subDomain)) ||
-              intldemoTenants.includes(TENANTS(subDomain)) ||
-              indifiTenants.includes(TENANTS(subDomain)) ||
-              rotaryTenants.includes(TENANTS(subDomain)) ||
-              treeboTenants.includes(TENANTS(subDomain)) ||
               kiviTenants.includes(TENANTS(subDomain))) &&
             i % 2 !== 0
               ? `rgba(247, 248, 250, 0.5)`
@@ -125,28 +104,8 @@ const BasicList = (params) => {
   return (
     <Table
       style={{
-        border: `${
-          demoTenants.includes(TENANTS(subDomain)) ||
-          mygateTestTenants.includes(TENANTS(subDomain)) ||
-          indifiTenants.includes(TENANTS(subDomain)) ||
-          intldemoTenants.includes(TENANTS(subDomain)) ||
-          rotaryTenants.includes(TENANTS(subDomain)) ||
-          treeboTenants.includes(TENANTS(subDomain)) ||
-          kiviTenants.includes(TENANTS(subDomain))
-            ? `0`
-            : ``
-        }`,
-        borderBottom: `${
-          demoTenants.includes(TENANTS(subDomain)) ||
-          mygateTestTenants.includes(TENANTS(subDomain)) ||
-          indifiTenants.includes(TENANTS(subDomain)) ||
-          intldemoTenants.includes(TENANTS(subDomain)) ||
-          rotaryTenants.includes(TENANTS(subDomain)) ||
-          treeboTenants.includes(TENANTS(subDomain)) ||
-          kiviTenants.includes(TENANTS(subDomain))
-            ? `1px solid #dfe1e6`
-            : ``
-        }`,
+        border: "0",
+        borderBottom: `1px solid #dfe1e6`,
       }}
       celled
       padded
