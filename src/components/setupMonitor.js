@@ -39,18 +39,7 @@ const SetupMonitorPage = ({ isMygate = false, subDomain }) => {
     <Table.Row>
       <Table.HeaderCell
         style={{
-          backgroundColor: `${
-            demoTenants.includes(TENANTS(subDomain)) ||
-            mygateTestTenants.includes(TENANTS(subDomain)) ||
-            intldemoTenants.includes(TENANTS(subDomain)) ||
-            indifiTenants.includes(TENANTS(subDomain)) ||
-            mosaicTestTenants.includes(TENANTS(subDomain)) ||
-            rotaryTenants.includes(TENANTS(subDomain)) ||
-            treeboTenants.includes(TENANTS(subDomain)) ||
-            kiviTenants.includes(TENANTS(subDomain))
-              ? `white`
-              : ``
-          }`,
+          backgroundColor: "white",
         }}
         colSpan="6"
       >
